@@ -34,9 +34,20 @@ namespace Tests
         }
         
         [TestMethod]
-        public void ReadNBit_ValidFile_ReadsNBitsCorrectly()
+        [DataRow((byte)61, 8, (Int32)61)]
+        [DataRow((byte)61, 7, (Int32)30)]
+        [DataRow((byte)61, 6, (Int32)15)]
+        [DataRow((byte)61, 4, (Int32) 3)]
+        [DataRow((byte)61, 1, (Int32) 0)]
+        public void ReadNBit_ValidFile_ReadsNBitsCorrectly(byte testByte, int numberOfBits, Int32 expectedBits)
         {
+            byte[] testBytes = new byte[1] { testByte };
+            File.WriteAllBytes(filepath, testBytes);
 
+            bitReader = new BitReader(filepath);
+            Int32 readBits = bitReader.ReadNBits(numberOfBits);
+
+            Assert.AreEqual(expectedBits, readBits);
         }
     }
 }
