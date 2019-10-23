@@ -18,10 +18,10 @@ namespace Tests
         }
 
         [TestMethod]
-        [DataRow((byte)61, (byte)1)]
+        [DataRow((byte)61, (byte)0)]
         [DataRow((byte)62, (byte)0)]
-        [DataRow((byte)63, (byte)1)]
-        [DataRow((byte)64, (byte)0)]
+        [DataRow((byte)128, (byte)1)]
+        [DataRow((byte)129, (byte)1)]
         public void ReadBit_ValidFile_ReadsBitCorrectly(byte testByte, byte expectedBit)
         {
             byte[] testBytes = new byte[1] { testByte };

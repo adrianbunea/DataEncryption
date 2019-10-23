@@ -8,11 +8,18 @@ namespace BitReaderWriter
 {
     public class BitBuffer
     {
-        private const int LEFTMOST_BIT = 128;
+        private const int LEFTMOST_BIT_MASK = 128;
+        private byte LeftmostBit
+        {
+            get
+            {
+                return (byte)((bits & LEFTMOST_BIT_MASK) >> 7);
+            }
+        }
 
         private int currentByte;
         private int bitsCount;
-        private byte[] bytes;
+        private readonly byte[] bytes;
         private byte bits;
 
         public BitBuffer(byte[] bytes)
@@ -22,25 +29,35 @@ namespace BitReaderWriter
             bitsCount = 0;
         }
 
-        private void Read()
+        public byte Pop()
+        {
+            if (EmptyBuffer())
+            {
+                ReadByte();
+            }
+
+            byte bit = LeftmostBit;
+            RemoveLeftmostBit();
+
+            return bit;
+        }
+
+        private void ReadByte()
         {
             bits = bytes[currentByte];
             currentByte++;
             bitsCount = 8;
         }
 
-        public byte Pop()
+        private void RemoveLeftmostBit()
         {
-            if (bitsCount == 0)
-            {
-                Read();
-            }
-
-            byte bit = (byte)((bits & LEFTMOST_BIT) >> 7);
             bits <<= 1;
             bitsCount--;
+        }
 
-            return bit;
+        private bool EmptyBuffer()
+        {
+            return bitsCount == 0;
         }
     }
 }
