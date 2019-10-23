@@ -39,7 +39,7 @@ namespace Tests
         [DataRow((byte)61, 6, (Int32)15)]
         [DataRow((byte)61, 4, (Int32) 3)]
         [DataRow((byte)61, 1, (Int32) 0)]
-        public void ReadNBit_ValidFile_ReadsNBitsCorrectly(byte testByte, int numberOfBits, Int32 expectedBits)
+        public void ReadNBit_ValidFiles_Reads8OrLessBitsCorrectly(byte testByte, int numberOfBits, Int32 expectedBits)
         {
             byte[] testBytes = new byte[1] { testByte };
             File.WriteAllBytes(filepath, testBytes);
@@ -48,6 +48,18 @@ namespace Tests
             Int32 readBits = bitReader.ReadNBits(numberOfBits);
 
             Assert.AreEqual(expectedBits, readBits);
+        }
+
+        [TestMethod]
+        public void ReadNBit_ValidFile_Reads9OrMoreBitsCorrectly()
+        {
+            byte[] testBytes = new byte[4] { 255, 255, 255, 255 };
+            File.WriteAllBytes(filepath, testBytes);
+
+            bitReader = new BitReader(filepath);
+            Int32 readBits = bitReader.ReadNBits(32);
+
+            Assert.AreEqual(-1, readBits);
         }
     }
 }
