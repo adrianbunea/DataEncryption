@@ -12,8 +12,7 @@ namespace BitReaderWriter
         private const int LEFTMOST_BIT = 128;
         private const int RIGHTMOST_BIT = 1;
 
-        private readonly string filepath;
-        private byte[] fileBytes;
+        private readonly byte[] fileBytes;
         private byte buffer;
         private int currentByte;
         private int bitsRead;
