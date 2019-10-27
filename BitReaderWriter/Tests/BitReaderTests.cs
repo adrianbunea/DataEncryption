@@ -39,7 +39,7 @@ namespace Tests
         [DataRow((byte)61, 6, (Int32)15)]
         [DataRow((byte)61, 4, (Int32) 3)]
         [DataRow((byte)61, 1, (Int32) 0)]
-        public void ReadNBit_ValidFiles_Reads8OrLessBitsCorrectly(byte testByte, int numberOfBits, Int32 expectedBits)
+        public void ReadNBit_ValidFiles_ReadsLessThan9BitsCorrectly(byte testByte, int numberOfBits, Int32 expectedBits)
         {
             byte[] testBytes = new byte[1] { testByte };
             File.WriteAllBytes(filepath, testBytes);
@@ -51,7 +51,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ReadNBit_ValidFile_Reads9OrMoreBitsCorrectly()
+        public void ReadNBit_ValidFile_ReadsMoreThan8BitsCorrectly()
         {
             byte[] testBytes = new byte[4] { 255, 255, 255, 255 };
             File.WriteAllBytes(filepath, testBytes);
@@ -60,6 +60,36 @@ namespace Tests
             Int32 readBits = bitReader.ReadNBits(32);
 
             Assert.AreEqual(-1, readBits);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        [DataRow(33)]
+        [DataRow(256)]
+        [DataRow(1024)]
+        [DataRow(1048576)]
+        public void ReadNBit_MoreThan32Bits_ThrowsArgumentException(int numberOfBits)
+        {
+            byte[] testBytes = new byte[1] { 0 };
+            File.WriteAllBytes(filepath, testBytes);
+
+            bitReader = new BitReader(filepath);
+            bitReader.ReadNBits(numberOfBits);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(-256)]
+        [DataRow(-1048576)]
+        public void ReadNBit_LessThan1Bit_ThrowsArgumentException(int numberOfBits)
+        {
+            byte[] testBytes = new byte[1] { 0 };
+            File.WriteAllBytes(filepath, testBytes);
+
+            bitReader = new BitReader(filepath);
+            bitReader.ReadNBits(numberOfBits);
         }
     }
 }
