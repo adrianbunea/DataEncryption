@@ -27,10 +27,19 @@ namespace BitReaderWriter
             GuardClauses.IsNotGreaterThan32(bitsToBeRead);
 
             Int32 bits = 0;
+            byte bit;
 
             while (bitsToBeRead > 0)
             {
-                byte bit = ReadBit();
+                try
+                {
+                    bit = ReadBit();
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    return bits;
+                }
+
                 bits <<= 1;
                 bits += bit;
                 bitsToBeRead--;

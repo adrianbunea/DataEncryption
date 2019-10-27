@@ -63,6 +63,18 @@ namespace Tests
         }
 
         [TestMethod]
+        public void ReadNBit_ValidFile_ReadsMoreBitsThanAvailableCorrectly()
+        {
+            byte[] testBytes = new byte[2] { 255, 255 };
+            File.WriteAllBytes(filepath, testBytes);
+
+            bitReader = new BitReader(filepath);
+            Int32 readBits = bitReader.ReadNBits(32);
+
+            Assert.AreEqual(65535, readBits);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         [DataRow(33)]
         [DataRow(256)]
