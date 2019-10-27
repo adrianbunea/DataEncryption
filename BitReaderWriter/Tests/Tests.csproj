@@ -54,6 +54,7 @@
     <Compile Include="BitWriterTests.cs" />
     <Compile Include="BitReaderWriterTests.cs" />
     <Compile Include="BitBufferTests.cs" />
+    <Compile Include="GuardClausesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

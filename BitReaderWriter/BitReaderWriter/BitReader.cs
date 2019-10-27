@@ -23,15 +23,8 @@ namespace BitReaderWriter
 
         public Int32 ReadNBits(int bitsToBeRead)
         {
-            if (bitsToBeRead < 1)
-            {
-                throw new ArgumentException("Cannot read less than 1 bit!");
-            }
-
-            if (bitsToBeRead > 32)
-            {
-                throw new ArgumentException("Cannot read more than 32 bits at a time!");
-            }
+            GuardClauses.IsNotLesserThan1(bitsToBeRead);
+            GuardClauses.IsNotGreaterThan32(bitsToBeRead);
 
             Int32 bits = 0;
 

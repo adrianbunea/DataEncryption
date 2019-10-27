@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BitReader.cs" />
     <Compile Include="BitBuffer.cs" />
+    <Compile Include="GuardClauses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
