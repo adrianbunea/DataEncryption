@@ -9,11 +9,12 @@ namespace Tests
     public class BitReaderTests
     {
         BitReader bitReader;
-        string filepath = $"{Environment.CurrentDirectory}\\ReaderTestFile.txt";
+        readonly string filepath = $"{Environment.CurrentDirectory}\\ReaderTestFile.txt";
 
         [TestCleanup]
         public void Teardown()
         {
+            bitReader.Dispose();
             File.Delete(filepath);
         }
 
@@ -71,7 +72,7 @@ namespace Tests
             bitReader = new BitReader(filepath);
             Int32 readBits = bitReader.ReadNBits(32);
 
-            Assert.AreEqual(65535, readBits);
+            Assert.AreEqual(-1, readBits);
         }
 
         [TestMethod]

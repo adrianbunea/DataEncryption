@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,16 +18,19 @@ namespace BitReaderWriter
             }
         }
 
-        private int currentByte;
+        private FileStream fs;
         private int bitsCount;
-        private readonly byte[] bytes;
         private byte bits;
 
-        public BitBuffer(byte[] bytes)
+        public BitBuffer(FileStream fs)
         {
-            this.bytes = bytes;
-            currentByte = 0;
+            this.fs = fs;
             bitsCount = 0;
+        }
+
+        public void Dispose()
+        {
+            fs.Close();
         }
 
         public byte Pop()
@@ -44,8 +48,7 @@ namespace BitReaderWriter
 
         private void ReadByte()
         {
-            bits = bytes[currentByte];
-            currentByte++;
+            bits = (byte)fs.ReadByte();
             bitsCount = 8;
         }
 

@@ -10,10 +10,17 @@ namespace BitReaderWriter
     public class BitReader
     {
         private readonly BitBuffer buffer;
+        private readonly FileStream fs;
 
         public BitReader(string filepath)
         {
-            buffer = new BitBuffer(File.ReadAllBytes(filepath));
+            fs = File.OpenRead(filepath);
+            buffer = new BitBuffer(fs);
+        }
+
+        public void Dispose()
+        {
+            fs.Close();
         }
 
         public byte ReadBit()
