@@ -46,10 +46,27 @@ namespace BitReaderWriter
             return bit;
         }
 
+        public void Push(byte bit)
+        {
+            if (FullBuffer())
+            {
+                WriteByte();
+            }
+
+            AppendRightmostBit(bit);
+
+        }
+
         private void ReadByte()
         {
             bits = (byte)fs.ReadByte();
             bitsCount = 8;
+        }
+
+        private void WriteByte()
+        {
+            fs.WriteByte(bits);
+            bitsCount = 0;
         }
 
         private void RemoveLeftmostBit()
@@ -58,9 +75,21 @@ namespace BitReaderWriter
             bitsCount--;
         }
 
+        private void AppendRightmostBit(byte bit)
+        {
+            bits <<= 1;
+            bits += bit;
+            bitsCount++;
+        }
+
         private bool EmptyBuffer()
         {
             return bitsCount == 0;
+        }
+
+        private bool FullBuffer()
+        {
+            return bitsCount == 8;
         }
     }
 }

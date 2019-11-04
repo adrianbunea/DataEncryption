@@ -42,7 +42,7 @@ namespace BitReaderWriter
                 {
                     bit = ReadBit();
                 }
-                catch (IndexOutOfRangeException)
+                catch (ArgumentOutOfRangeException)
                 {
                     return bits;
                 }

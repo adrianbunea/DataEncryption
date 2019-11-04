@@ -20,9 +20,9 @@ namespace Tests
 
         [TestMethod]
         [DataRow((byte)128, (byte)0)]
-        [DataRow((byte) 64, (byte)1)]
+        [DataRow((byte)64, (byte)1)]
         [DataRow((byte)129, (byte)0)]
-        [DataRow((byte) 63, (byte)0)]
+        [DataRow((byte)63, (byte)0)]
         public void Pop_WhenBufferIsNotEmpty_ReturnsLeftmostBit(byte testByte, byte expectedBit)
         {
             byte[] testBytes = new byte[1] { testByte };
@@ -37,9 +37,7 @@ namespace Tests
 
         [TestMethod]
         [DataRow((byte)128, (byte)1)]
-        [DataRow((byte) 64, (byte)0)]
-        [DataRow((byte)129, (byte)1)]
-        [DataRow((byte) 63, (byte)0)]
+        [DataRow((byte)64, (byte)0)]
         public void Pop_WhenBufferIsEmpty_ReturnsLeftmostBit(byte testByte, byte expectedBit)
         {
             byte[] testBytes = new byte[1] { testByte };
@@ -49,6 +47,78 @@ namespace Tests
             byte bit = buffer.Pop();
 
             Assert.AreEqual(expectedBit, bit);
+        }
+
+        [TestMethod]
+        [DataRow((byte)0, (byte)0)]
+        [DataRow((byte)1, (byte)128)]
+        public void Push_WhenBufferIsNotFull_WritesRightmostBit(byte testBit, byte expectedByte)
+        {
+            byte[] testBytes = new byte[0];
+            File.WriteAllBytes(filepath, testBytes);
+            FileStream fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite); 
+            buffer = new BitBuffer(fs);
+
+            buffer.Push(testBit);
+            for (int i = 0; i < 8; i++)
+            {
+                buffer.Push(0);
+            }
+            buffer.Dispose();
+
+            fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            byte actualByte = (byte)fs.ReadByte();
+            fs.Close();
+
+            Assert.AreEqual(expectedByte, actualByte);
+        }
+
+        [TestMethod]
+        [DataRow((byte)0, (byte)0)]
+        [DataRow((byte)1, (byte)1)]
+        public void Push_WhenBufferIsFull_WritesRightmostBit(byte testBit, byte expectedByte)
+        {
+            byte[] testBytes = new byte[0];
+            File.WriteAllBytes(filepath, testBytes);
+            FileStream fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            buffer = new BitBuffer(fs);
+
+            for (int i = 0; i < 7; i++)
+            {
+                buffer.Push(0);
+            }
+            buffer.Push(testBit);
+            buffer.Push(0);
+            buffer.Dispose();
+
+            fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            byte actualByte = (byte)fs.ReadByte();
+            fs.Close();
+
+            Assert.AreEqual(expectedByte, actualByte);
+        }
+
+        [TestMethod]
+        [DataRow((byte)0, (byte)0)]
+        [DataRow((byte)1, (byte)255)]
+        public void Push_WhenBufferIsFull_WritesByteToFile(byte testBit, byte expectedByte)
+        {
+            byte[] testBytes = new byte[0];
+            File.WriteAllBytes(filepath, testBytes);
+            FileStream fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            buffer = new BitBuffer(fs);
+
+            for (int i = 0; i < 9; i++)
+            {
+                buffer.Push(testBit);
+            }
+            buffer.Dispose();
+
+            fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            byte actualByte = (byte)fs.ReadByte();
+            fs.Close();
+
+            Assert.AreEqual(expectedByte, actualByte);
         }
     }
 }
