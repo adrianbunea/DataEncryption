@@ -48,13 +48,12 @@ namespace BitReaderWriter
 
         public void Push(byte bit)
         {
+            AppendRightmostBit(bit);
+
             if (FullBuffer())
             {
                 WriteByte();
             }
-
-            AppendRightmostBit(bit);
-
         }
 
         private void ReadByte()
