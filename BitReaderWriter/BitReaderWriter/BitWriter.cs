@@ -25,7 +25,16 @@ namespace BitReaderWriter
 
         public void Dispose()
         {
+            FlushBuffer();
             fs.Close();
+        }
+
+        private void FlushBuffer()
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                WriteBit(1);
+            }
         }
     }
 }
