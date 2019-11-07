@@ -48,7 +48,7 @@ namespace BitReaderWriter
 
         public void Push(byte bit)
         {
-            AppendRightmostBit(bit);
+            AppendLeftmostBit(bit);
 
             if (FullBuffer())
             {
@@ -74,10 +74,10 @@ namespace BitReaderWriter
             bitsCount--;
         }
 
-        private void AppendRightmostBit(byte bit)
+        private void AppendLeftmostBit(byte bit)
         {
-            bits <<= 1;
-            bits += bit;
+            bits >>= 1;
+            bits += (byte)(bit << 7);
             bitsCount++;
         }
 

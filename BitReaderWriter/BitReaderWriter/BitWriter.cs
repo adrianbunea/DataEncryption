@@ -9,6 +9,7 @@ namespace BitReaderWriter
 {
     public class BitWriter
     {
+        private const int RIGHTMOST_BIT_MASK = 1;
         private readonly BitBuffer buffer;
         private FileStream fs;
 
@@ -21,6 +22,21 @@ namespace BitReaderWriter
         public void WriteBit(byte bit)
         {
             buffer.Push(bit);
+        }
+
+        public void WriteNBit(int value, int bitsToBeWritten)
+        {
+            GuardClauses.IsNotLesserThan1(bitsToBeWritten);
+            GuardClauses.IsNotGreaterThan32(bitsToBeWritten);
+
+            while (bitsToBeWritten > 0)
+            {
+                byte bit = (byte)(value & RIGHTMOST_BIT_MASK);
+                value >>= 1;
+
+                WriteBit(bit);
+                bitsToBeWritten--;
+            }
         }
 
         public void Dispose()
