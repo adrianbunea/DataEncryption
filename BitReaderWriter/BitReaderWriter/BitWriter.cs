@@ -9,7 +9,6 @@ namespace BitReaderWriter
 {
     public class BitWriter
     {
-        private const int RIGHTMOST_BIT_MASK = 1;
         private readonly BitBuffer buffer;
         private readonly FileStream fs;
 
@@ -31,7 +30,7 @@ namespace BitReaderWriter
 
             while (bitsToBeWritten > 0)
             {
-                byte bit = (byte)(value & RIGHTMOST_BIT_MASK);
+                byte bit = (byte)(value & Masks.RIGHTMOST_BIT_MASK);
                 value >>= 1;
 
                 WriteBit(bit);

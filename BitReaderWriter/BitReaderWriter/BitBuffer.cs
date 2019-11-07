@@ -9,12 +9,11 @@ namespace BitReaderWriter
 {
     public class BitBuffer
     {
-        private const int LEFTMOST_BIT_MASK = 128;
         private byte LeftmostBit
         {
             get
             {
-                return (byte)((bits & LEFTMOST_BIT_MASK) >> 7);
+                return (byte)((bits & Masks.LEFTMOST_BIT_MASK) >> 7);
             }
         }
 
