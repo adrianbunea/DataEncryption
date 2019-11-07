@@ -24,7 +24,7 @@ namespace BitReaderWriter
             buffer.Push(bit);
         }
 
-        public void WriteNBit(int value, int bitsToBeWritten)
+        public void WriteNBits(int value, int bitsToBeWritten)
         {
             GuardClauses.IsNotLesserThan1(bitsToBeWritten);
             GuardClauses.IsNotGreaterThan32(bitsToBeWritten);
@@ -41,8 +41,15 @@ namespace BitReaderWriter
 
         public void Dispose()
         {
-            FlushBuffer();
-            fs.Close();
+            try
+            {
+                FlushBuffer();
+                fs.Close();
+            }
+            catch (ObjectDisposedException)
+            {
+                return;
+            }
         }
 
         private void FlushBuffer()

@@ -78,8 +78,6 @@ namespace Tests
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         [DataRow(33)]
-        [DataRow(256)]
-        [DataRow(1024)]
         [DataRow(1048576)]
         public void ReadNBit_MoreThan32Bits_ThrowsArgumentException(int numberOfBits)
         {
@@ -94,7 +92,6 @@ namespace Tests
         [ExpectedException(typeof(ArgumentException))]
         [DataRow(0)]
         [DataRow(-1)]
-        [DataRow(-256)]
         [DataRow(-1048576)]
         public void ReadNBit_LessThan1Bit_ThrowsArgumentException(int numberOfBits)
         {

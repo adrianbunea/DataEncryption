@@ -20,7 +20,14 @@ namespace BitReaderWriter
 
         public void Dispose()
         {
-            fs.Close();
+            try
+            {
+                fs.Close();
+            }
+            catch (ObjectDisposedException)
+            {
+                return;
+            }
         }
 
         public byte ReadBit()

@@ -14,13 +14,14 @@ namespace Tests
         [TestCleanup]
         public void Teardown()
         {
+            bitWriter.Dispose();
             File.Delete(filepath);
         }
 
         [TestMethod]
         [DataRow((byte)0, (byte)254)]
         [DataRow((byte)1, (byte)255)]
-        public void WriteBit_ValidFile_WritesBitCorrectly(byte testBit, byte expectedByte)
+        public void WriteBits_ValidFile_WritesBitCorrectly(byte testBit, byte expectedByte)
         {
             bitWriter = new BitWriter(filepath);
 
@@ -37,16 +38,37 @@ namespace Tests
         [DataRow(1, 8, 1)]
         [DataRow(127, 8, 127)]
         [DataRow(255, 8, 255)]
-        public void WriteNBit_ValidFile_WritesNBitsCorrectly(int value, int numberOfBits, int expectedValue)
+        public void WriteNBits_ValidFile_WritesNBitsCorrectly(int value, int numberOfBits, int expectedValue)
         {
             bitWriter = new BitWriter(filepath);
 
-            bitWriter.WriteNBit(value, numberOfBits);
+            bitWriter.WriteNBits(value, numberOfBits);
             bitWriter.Dispose();
             byte[] fileBytes = File.ReadAllBytes(filepath);
             int actualValue = fileBytes[0];
 
             Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        [DataRow(33)]
+        [DataRow(1048576)]
+        public void WriteNBits_MoreThan32Bits_ThrowsArgumentException(int numberOfBits)
+        {
+            bitWriter = new BitWriter(filepath);
+            bitWriter.WriteNBits(0, numberOfBits);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(-1048576)]
+        public void WriteNBits_LessThan1Bit_ThrowsArgumentException(int numberOfBits)
+        {
+            bitWriter = new BitWriter(filepath);
+            bitWriter.WriteNBits(0, numberOfBits);
         }
     }
 }
