@@ -54,16 +54,11 @@ namespace Tests
         [DataRow((byte)1, (byte)255)]
         public void Push_WhenBufferIsNotFull_WritesRightmostBit(byte testBit, byte expectedByte)
         {
-            byte[] fileBytes = new byte[0];
-            File.WriteAllBytes(filepath, fileBytes);
-            FileStream fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite); 
+            FileStream fs = File.Create(filepath);
             buffer = new BitBuffer(fs);
 
             buffer.Push(testBit);
-            for (int i = 0; i < 7; i++)
-            {
-                buffer.Push(1);
-            }
+            buffer.Flush();
             buffer.Dispose();
 
             fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
@@ -76,46 +71,13 @@ namespace Tests
         [TestMethod]
         [DataRow((byte)0, (byte)254)]
         [DataRow((byte)1, (byte)255)]
-        public void Push_WhenBufferIsFull_WritesLeftmostBit(byte testBit, byte expectedByte)
-        {
-            byte[] fileBytes = new byte[0];
-            File.WriteAllBytes(filepath, fileBytes);
-            FileStream fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            buffer = new BitBuffer(fs);
-
-            for (int i = 0; i < 8; i++)
-            {
-                buffer.Push(1);
-            }
-            buffer.Push(testBit);
-            for (int i = 0; i < 7; i++)
-            {
-                buffer.Push(1);
-            }
-            buffer.Dispose();
-
-            fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            fs.ReadByte();
-            byte actualByte = (byte)fs.ReadByte();
-            fs.Close();
-
-            Assert.AreEqual(expectedByte, actualByte);
-        }
-
-        [TestMethod]
-        [DataRow((byte)0, (byte)0)]
-        [DataRow((byte)1, (byte)255)]
         public void Push_WhenBufferIsFull_WritesContentToFile(byte testBit, byte expectedByte)
         {
-            byte[] testBytes = new byte[0];
-            File.WriteAllBytes(filepath, testBytes);
-            FileStream fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            FileStream fs = File.Create(filepath);
             buffer = new BitBuffer(fs);
 
-            for (int i = 0; i < 9; i++)
-            {
-                buffer.Push(testBit);
-            }
+            buffer.Push(testBit);
+            buffer.Flush();
             buffer.Dispose();
 
             fs = File.Open(filepath, FileMode.OpenOrCreate, FileAccess.ReadWrite);

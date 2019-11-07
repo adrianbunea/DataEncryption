@@ -11,7 +11,7 @@ namespace BitReaderWriter
     {
         private const int RIGHTMOST_BIT_MASK = 1;
         private readonly BitBuffer buffer;
-        private FileStream fs;
+        private readonly FileStream fs;
 
         public BitWriter(string filepath)
         {
