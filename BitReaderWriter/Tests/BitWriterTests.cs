@@ -21,7 +21,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [DataRow((byte)0, (byte)254)]
+        [DataRow((byte)0, (byte)127)]
         [DataRow((byte)1, (byte)255)]
         public void WriteBits_ValidFile_WritesBitCorrectly(byte testBit, byte expectedByte)
         {
@@ -36,27 +36,11 @@ namespace Tests
         }
 
         [TestMethod]
-        [DataRow((UInt32)0, (UInt32)0)]
-        [DataRow((UInt32)1, (UInt32)1)]
-        [DataRow((UInt32)127, (UInt32)127)]
-        [DataRow((UInt32)255, (UInt32)255)]
-        public void WriteNBits_ValidFile_Writes8BitsCorrectly(UInt32 value, UInt32 expectedValue)
-        {
-            bitWriter = new BitWriter(filepath);
-
-            bitWriter.WriteNBits(value, 8);
-            bitWriter.Dispose();
-            byte[] fileBytes = File.ReadAllBytes(filepath);
-            UInt32 actualValue = fileBytes[0];
-
-            Assert.AreEqual(expectedValue, actualValue);
-        }
-
-        [TestMethod]
-        [DataRow((UInt32)65535, 16, (UInt32)65535)]
-        [DataRow((UInt32)16777215, 24, (UInt32)16777215)]
-        [DataRow((UInt32)4294967295, 32, (UInt32)4294967295)]
-        public void WriteNBits_ValidFile_WritesMoreThan8BitsCorrectly(UInt32 value, int numberOfBits, UInt32 expectedValue)
+        [DataRow((UInt32)254, 8, (UInt32)254)]
+        [DataRow((UInt32)65534, 16, (UInt32)65534)]
+        [DataRow((UInt32)16777214, 24, (UInt32)16777214)]
+        [DataRow((UInt32)4294967294, 32, (UInt32)4294967294)]
+        public void WriteNBits_ValidFile_WritesBitsCorrectly(UInt32 value, int numberOfBits, UInt32 expectedValue)
         {
             bitWriter = new BitWriter(filepath);
 

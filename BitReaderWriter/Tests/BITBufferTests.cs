@@ -50,7 +50,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [DataRow((byte)0, (byte)254)]
+        [DataRow((byte)0, (byte)127)]
         [DataRow((byte)1, (byte)255)]
         public void Push_WhenBufferIsNotFull_WritesRightmostBit(byte testBit, byte expectedByte)
         {
@@ -69,7 +69,7 @@ namespace Tests
         }
 
         [TestMethod]
-        [DataRow((byte)0, (byte)254)]
+        [DataRow((byte)0, (byte)127)]
         [DataRow((byte)1, (byte)255)]
         public void Push_WhenBufferIsFull_WritesContentToFile(byte testBit, byte expectedByte)
         {

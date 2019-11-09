@@ -27,11 +27,13 @@ namespace BitReaderWriter
         {
             GuardClauses.IsNotLesserThan1(bitsToBeWritten);
             GuardClauses.IsNotGreaterThan32(bitsToBeWritten);
+            int shiftCount = bitsToBeWritten - 1;
+            int MASK = 1 << (bitsToBeWritten - 1);
 
             while (bitsToBeWritten > 0)
             {
-                byte bit = (byte)(value & Masks.RIGHTMOST_BIT_MASK);
-                value >>= 1;
+                byte bit = (byte)((value & MASK) >> shiftCount);
+                value <<= 1;
 
                 WriteBit(bit);
                 bitsToBeWritten--;
