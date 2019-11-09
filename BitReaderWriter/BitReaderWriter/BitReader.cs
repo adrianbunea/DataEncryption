@@ -35,12 +35,12 @@ namespace BitReaderWriter
             return buffer.Pop();
         }
 
-        public Int32 ReadNBits(int bitsToBeRead)
+        public UInt32 ReadNBits(int bitsToBeRead)
         {
             GuardClauses.IsNotLesserThan1(bitsToBeRead);
             GuardClauses.IsNotGreaterThan32(bitsToBeRead);
 
-            Int32 bits = 0;
+            UInt32 bits = 0;
             byte bit;
 
             while (bitsToBeRead > 0)

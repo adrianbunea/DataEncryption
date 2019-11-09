@@ -23,7 +23,7 @@ namespace BitReaderWriter
             buffer.Push(bit);
         }
 
-        public void WriteNBits(int value, int bitsToBeWritten)
+        public void WriteNBits(UInt32 value, int bitsToBeWritten)
         {
             GuardClauses.IsNotLesserThan1(bitsToBeWritten);
             GuardClauses.IsNotGreaterThan32(bitsToBeWritten);

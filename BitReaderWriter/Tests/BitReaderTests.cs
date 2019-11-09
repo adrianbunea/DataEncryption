@@ -35,18 +35,18 @@ namespace Tests
         }
         
         [TestMethod]
-        [DataRow((byte)61, 8, (Int32)61)]
-        [DataRow((byte)61, 7, (Int32)30)]
-        [DataRow((byte)61, 6, (Int32)15)]
-        [DataRow((byte)61, 4, (Int32) 3)]
-        [DataRow((byte)61, 1, (Int32) 0)]
-        public void ReadNBit_ValidFiles_ReadsLessThan9BitsCorrectly(byte testByte, int numberOfBits, Int32 expectedBits)
+        [DataRow((byte)61, 8, (UInt32)61)]
+        [DataRow((byte)61, 7, (UInt32)30)]
+        [DataRow((byte)61, 6, (UInt32)15)]
+        [DataRow((byte)61, 4, (UInt32) 3)]
+        [DataRow((byte)61, 1, (UInt32) 0)]
+        public void ReadNBit_ValidFiles_ReadsLessThan9BitsCorrectly(byte testByte, int numberOfBits, UInt32 expectedBits)
         {
             byte[] testBytes = new byte[1] { testByte };
             File.WriteAllBytes(filepath, testBytes);
 
             bitReader = new BitReader(filepath);
-            Int32 readBits = bitReader.ReadNBits(numberOfBits);
+            UInt32 readBits = bitReader.ReadNBits(numberOfBits);
 
             Assert.AreEqual(expectedBits, readBits);
         }
@@ -58,9 +58,9 @@ namespace Tests
             File.WriteAllBytes(filepath, testBytes);
 
             bitReader = new BitReader(filepath);
-            Int32 readBits = bitReader.ReadNBits(32);
+            UInt32 readBits = bitReader.ReadNBits(32);
 
-            Assert.AreEqual(-1, readBits);
+            Assert.AreEqual(4294967295, readBits);
         }
 
         [TestMethod]
@@ -70,9 +70,9 @@ namespace Tests
             File.WriteAllBytes(filepath, testBytes);
 
             bitReader = new BitReader(filepath);
-            Int32 readBits = bitReader.ReadNBits(32);
+            UInt32 readBits = bitReader.ReadNBits(32);
 
-            Assert.AreEqual(-1, readBits);
+            Assert.AreEqual((UInt32)65535, readBits);
         }
 
         [TestMethod]

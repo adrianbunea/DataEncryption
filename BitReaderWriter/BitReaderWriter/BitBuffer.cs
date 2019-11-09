@@ -17,7 +17,7 @@ namespace BitReaderWriter
             }
         }
 
-        private FileStream fs;
+        private readonly FileStream fs;
         private int bitsCount;
         private byte bits;
 
@@ -57,6 +57,11 @@ namespace BitReaderWriter
 
         private void ReadByte()
         {
+            if (fs.Position == fs.Length)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             bits = (byte)fs.ReadByte();
             bitsCount = 8;
         }

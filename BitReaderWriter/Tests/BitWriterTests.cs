@@ -2,6 +2,8 @@
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BitReaderWriter;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Tests
 {
@@ -34,18 +36,39 @@ namespace Tests
         }
 
         [TestMethod]
-        [DataRow(0, 8, 0)]
-        [DataRow(1, 8, 1)]
-        [DataRow(127, 8, 127)]
-        [DataRow(255, 8, 255)]
-        public void WriteNBits_ValidFile_WritesNBitsCorrectly(int value, int numberOfBits, int expectedValue)
+        [DataRow((UInt32)0, (UInt32)0)]
+        [DataRow((UInt32)1, (UInt32)1)]
+        [DataRow((UInt32)127, (UInt32)127)]
+        [DataRow((UInt32)255, (UInt32)255)]
+        public void WriteNBits_ValidFile_Writes8BitsCorrectly(UInt32 value, UInt32 expectedValue)
+        {
+            bitWriter = new BitWriter(filepath);
+
+            bitWriter.WriteNBits(value, 8);
+            bitWriter.Dispose();
+            byte[] fileBytes = File.ReadAllBytes(filepath);
+            UInt32 actualValue = fileBytes[0];
+
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestMethod]
+        [DataRow((UInt32)65535, 16, (UInt32)65535)]
+        [DataRow((UInt32)16777215, 24, (UInt32)16777215)]
+        [DataRow((UInt32)4294967295, 32, (UInt32)4294967295)]
+        public void WriteNBits_ValidFile_WritesMoreThan8BitsCorrectly(UInt32 value, int numberOfBits, UInt32 expectedValue)
         {
             bitWriter = new BitWriter(filepath);
 
             bitWriter.WriteNBits(value, numberOfBits);
             bitWriter.Dispose();
-            byte[] fileBytes = File.ReadAllBytes(filepath);
-            int actualValue = fileBytes[0];
+            List<byte> fileBytes = File.ReadAllBytes(filepath).ToList();
+            UInt32 actualValue = 0;
+            for (int i = 0; i < fileBytes.Count; i++)
+            {
+                int shiftAmount = (fileBytes.Count - i - 1) * 8;
+                actualValue |= (UInt32)(fileBytes[i] << shiftAmount);
+            }
 
             Assert.AreEqual(expectedValue, actualValue);
         }
