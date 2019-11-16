@@ -51,7 +51,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(601, 24);
             this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Text = "menuStrip";
             // 
             // encoderToolStripMenuItem
             // 
@@ -65,14 +65,16 @@
             // loadFileToolStripMenuItem
             // 
             this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.loadFileToolStripMenuItem.Text = "Load File";
+            this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
             // 
             // encodeLoadedFileToolStripMenuItem
             // 
             this.encodeLoadedFileToolStripMenuItem.Name = "encodeLoadedFileToolStripMenuItem";
-            this.encodeLoadedFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.encodeLoadedFileToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.encodeLoadedFileToolStripMenuItem.Text = "Encode Loaded File";
+            this.encodeLoadedFileToolStripMenuItem.Click += new System.EventHandler(this.encodeLoadedFileToolStripMenuItem_Click);
             // 
             // decoderToolStripMenuItem
             // 
@@ -88,12 +90,14 @@
             this.loadEncodedFileToolStripMenuItem.Name = "loadEncodedFileToolStripMenuItem";
             this.loadEncodedFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadEncodedFileToolStripMenuItem.Text = "Load Encoded File";
+            this.loadEncodedFileToolStripMenuItem.Click += new System.EventHandler(this.loadEncodedFileToolStripMenuItem_Click);
             // 
             // decodeFileToolStripMenuItem
             // 
             this.decodeFileToolStripMenuItem.Name = "decodeFileToolStripMenuItem";
             this.decodeFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.decodeFileToolStripMenuItem.Text = "Decode Loaded File";
+            this.decodeFileToolStripMenuItem.Click += new System.EventHandler(this.decodeFileToolStripMenuItem_Click);
             // 
             // textBox
             // 
@@ -111,6 +115,7 @@
             this.buttonEncodeInputText.TabIndex = 2;
             this.buttonEncodeInputText.Text = "Encode Input Text";
             this.buttonEncodeInputText.UseVisualStyleBackColor = true;
+            this.buttonEncodeInputText.Click += new System.EventHandler(this.buttonEncodeInputText_Click);
             // 
             // checkBoxShowCodes
             // 
