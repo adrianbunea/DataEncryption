@@ -10,6 +10,10 @@ namespace StaticHuffman
 {
     class StaticHuffman
     {
+        BitReader reader;
+        int readBits;
+        BitWriter writer;
+
         public List<string> Codes 
         {
             get
@@ -35,6 +39,13 @@ namespace StaticHuffman
             WriteEncodedFile(fileToBeEncoded);
         }
 
+        public void Decode(string fileToBeDecoded)
+        {
+            ReadStatistic(fileToBeDecoded);
+            model = CreateModel();
+            WriteDecodedFile(fileToBeDecoded);
+        }
+
         private int[] CalculateStatistic(string fileToBeEncoded)
         {
             int[] statistic = new int[256];
@@ -50,6 +61,51 @@ namespace StaticHuffman
             return statistic;
         }
 
+        private void ReadStatistic(string fileToBeDecoded)
+        {
+            statistic = new int[256];
+
+            reader = new BitReader(fileToBeDecoded);
+            int[] allocatedBits = new int[256];
+
+            for (int i = 0; i < 256; i++)
+            {
+                uint mode = reader.ReadNBits(2);
+                if (mode == 0)
+                {
+                    allocatedBits[i] = 0;
+                }
+                else if (mode == 1)
+                {
+                    allocatedBits[i] = 8;
+                }
+                else if (mode == 2)
+                {
+                    allocatedBits[i] = 16;
+                }
+                else if (mode == 3)
+                {
+                    allocatedBits[i] = 32;
+                }
+                else
+                {
+                    throw new Exception("Bit allocation too large!");
+                }
+            }
+
+            readBits = 512;
+
+            for (int i = 0; i < 256; i++)
+            {
+                int numberOfBits = allocatedBits[i];
+                if (numberOfBits > 0)
+                {
+                    statistic[i] = (int)reader.ReadNBits(numberOfBits);
+                    readBits += numberOfBits;
+                }
+            }
+        }
+
         private Model CreateModel()
         {
             return new Model(statistic);
@@ -57,8 +113,8 @@ namespace StaticHuffman
 
         private void WriteEncodedFile(string fileToBeEncoded)
         {
-            BitWriter writer = new BitWriter(fileToBeEncoded + ".hs");
-            WriteHeader(writer);
+            writer = new BitWriter(fileToBeEncoded + ".hs");
+            WriteHeader();
 
             using (FileStream fs = new FileStream(fileToBeEncoded, FileMode.Open))
             {
@@ -71,10 +127,36 @@ namespace StaticHuffman
             }
 
             writer.Dispose();
-
         }
 
-        private void WriteHeader(BitWriter writer)
+        private void WriteDecodedFile(string fileToBeDecoded)
+        {
+            Dictionary<string, byte> invertedModelEntries = new Dictionary<string, byte>();
+            foreach (KeyValuePair<byte, string> entry in model.entries)
+            {
+                invertedModelEntries.Add(entry.Value, entry.Key);
+            }
+
+            FileInfo info = new FileInfo(fileToBeDecoded);
+            string extension = fileToBeDecoded.Substring(fileToBeDecoded.Length - 7).Replace(".hs", "");
+            writer = new BitWriter(fileToBeDecoded + DateTime.Now.ToString("dd-MM-yyyy-HH-mm") + extension);
+
+
+            string readCode = "";
+            for (int i = readBits; i < info.Length*8; i++)
+            {
+                readCode += reader.ReadBit();
+                if (invertedModelEntries.ContainsKey(readCode))
+                {
+                    writer.WriteNBits((uint)invertedModelEntries[readCode], 8);
+                    readCode = "";
+                }
+            }
+
+            writer.Dispose();
+        }
+
+        private void WriteHeader()
         {
             int[] allocatedBits = new int[256];
             for (int i = 0; i < 256; i++)
@@ -108,7 +190,6 @@ namespace StaticHuffman
 
             for (int i = 0; i < 256; i++)
             {
-                
                 int numberOfBits = allocatedBits[i];
                 if (numberOfBits > 0)
                 {
@@ -116,11 +197,6 @@ namespace StaticHuffman
                     writer.WriteNBits(counter, numberOfBits);
                 }
             }
-        }
-
-        public void Decode(string fileToBeDecoded)
-        {
-
         }
     }
 }
