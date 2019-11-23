@@ -35,15 +35,15 @@
             this.decoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.decodeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.offsetBits = new System.Windows.Forms.NumericUpDown();
+            this.lengthBits = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBoxShowTokens = new System.Windows.Forms.CheckBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxTokens = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.offsetBits)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lengthBits)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -71,12 +71,14 @@
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // decodeToolStripMenuItem
             // 
             this.decodeToolStripMenuItem.Name = "decodeToolStripMenuItem";
-            this.decodeToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.decodeToolStripMenuItem.Text = "Decode";
+            this.decodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.decodeToolStripMenuItem.Text = "Encode";
+            this.decodeToolStripMenuItem.Click += new System.EventHandler(this.encodeToolStripMenuItem_Click);
             // 
             // decoderToolStripMenuItem
             // 
@@ -92,56 +94,58 @@
             this.loadToolStripMenuItem1.Name = "loadToolStripMenuItem1";
             this.loadToolStripMenuItem1.Size = new System.Drawing.Size(114, 22);
             this.loadToolStripMenuItem1.Text = "Load";
+            this.loadToolStripMenuItem1.Click += new System.EventHandler(this.loadToolStripMenuItem1_Click);
             // 
             // decodeToolStripMenuItem1
             // 
             this.decodeToolStripMenuItem1.Name = "decodeToolStripMenuItem1";
             this.decodeToolStripMenuItem1.Size = new System.Drawing.Size(114, 22);
             this.decodeToolStripMenuItem1.Text = "Decode";
+            this.decodeToolStripMenuItem1.Click += new System.EventHandler(this.decodeToolStripMenuItem1_Click);
             // 
-            // numericUpDown2
+            // offsetBits
             // 
-            this.numericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.numericUpDown2.Location = new System.Drawing.Point(106, 34);
-            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(10);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.offsetBits.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.offsetBits.Location = new System.Drawing.Point(106, 34);
+            this.offsetBits.Margin = new System.Windows.Forms.Padding(10);
+            this.offsetBits.Maximum = new decimal(new int[] {
             16,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.offsetBits.Minimum = new decimal(new int[] {
             3,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(57, 26);
-            this.numericUpDown2.TabIndex = 2;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.offsetBits.Name = "offsetBits";
+            this.offsetBits.Size = new System.Drawing.Size(57, 26);
+            this.offsetBits.TabIndex = 2;
+            this.offsetBits.Value = new decimal(new int[] {
             3,
             0,
             0,
             0});
             // 
-            // numericUpDown3
+            // lengthBits
             // 
-            this.numericUpDown3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.numericUpDown3.Location = new System.Drawing.Point(106, 80);
-            this.numericUpDown3.Margin = new System.Windows.Forms.Padding(10);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
+            this.lengthBits.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lengthBits.Location = new System.Drawing.Point(106, 80);
+            this.lengthBits.Margin = new System.Windows.Forms.Padding(10);
+            this.lengthBits.Maximum = new decimal(new int[] {
             7,
             0,
             0,
             0});
-            this.numericUpDown3.Minimum = new decimal(new int[] {
+            this.lengthBits.Minimum = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(57, 26);
-            this.numericUpDown3.TabIndex = 3;
-            this.numericUpDown3.Value = new decimal(new int[] {
+            this.lengthBits.Name = "lengthBits";
+            this.lengthBits.Size = new System.Drawing.Size(57, 26);
+            this.lengthBits.TabIndex = 3;
+            this.lengthBits.Value = new decimal(new int[] {
             2,
             0,
             0,
@@ -181,34 +185,34 @@
             this.checkBoxShowTokens.Text = "Show Tokens";
             this.checkBoxShowTokens.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // listBoxTokens
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(183, 34);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(10);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(202, 368);
-            this.listBox1.TabIndex = 8;
+            this.listBoxTokens.FormattingEnabled = true;
+            this.listBoxTokens.Location = new System.Drawing.Point(183, 34);
+            this.listBoxTokens.Margin = new System.Windows.Forms.Padding(10);
+            this.listBoxTokens.Name = "listBoxTokens";
+            this.listBoxTokens.Size = new System.Drawing.Size(202, 368);
+            this.listBoxTokens.TabIndex = 8;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 417);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listBoxTokens);
             this.Controls.Add(this.checkBoxShowTokens);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.numericUpDown3);
-            this.Controls.Add(this.numericUpDown2);
+            this.Controls.Add(this.lengthBits);
+            this.Controls.Add(this.offsetBits);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.offsetBits)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lengthBits)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,12 +227,12 @@
         private System.Windows.Forms.ToolStripMenuItem decoderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem decodeToolStripMenuItem1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown offsetBits;
+        private System.Windows.Forms.NumericUpDown lengthBits;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBoxShowTokens;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxTokens;
     }
 }
 
