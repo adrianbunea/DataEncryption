@@ -36,8 +36,8 @@ namespace LZ77
         private void encodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             lz77 = new LZ77();
-            lz77.offsetBits = (int)offsetBits.Value;
-            lz77.lengthBits = (int)lengthBits.Value;
+            lz77.offsetBits = (uint)offsetBits.Value;
+            lz77.lengthBits = (uint)lengthBits.Value;
             lz77.Encode(fileToBeEncoded);
             if (checkBoxShowTokens.Checked)
             {

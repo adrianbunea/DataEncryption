@@ -69,14 +69,14 @@
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // decodeToolStripMenuItem
             // 
             this.decodeToolStripMenuItem.Name = "decodeToolStripMenuItem";
-            this.decodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.decodeToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.decodeToolStripMenuItem.Text = "Encode";
             this.decodeToolStripMenuItem.Click += new System.EventHandler(this.encodeToolStripMenuItem_Click);
             // 
@@ -109,7 +109,7 @@
             this.offsetBits.Location = new System.Drawing.Point(106, 34);
             this.offsetBits.Margin = new System.Windows.Forms.Padding(10);
             this.offsetBits.Maximum = new decimal(new int[] {
-            16,
+            15,
             0,
             0,
             0});
