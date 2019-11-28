@@ -16,5 +16,25 @@ namespace LZW
         {
             InitializeComponent();
         }
+
+        private void loadToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void encodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void decodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

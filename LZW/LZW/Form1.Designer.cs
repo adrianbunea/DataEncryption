@@ -79,24 +79,28 @@
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // decodeToolStripMenuItem
             // 
             this.decodeToolStripMenuItem.Name = "decodeToolStripMenuItem";
             this.decodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.decodeToolStripMenuItem.Text = "Decode";
+            this.decodeToolStripMenuItem.Click += new System.EventHandler(this.decodeToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem1
             // 
             this.loadToolStripMenuItem1.Name = "loadToolStripMenuItem1";
             this.loadToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.loadToolStripMenuItem1.Text = "Load";
+            this.loadToolStripMenuItem1.Click += new System.EventHandler(this.loadToolStripMenuItem1_Click);
             // 
             // encodeToolStripMenuItem
             // 
             this.encodeToolStripMenuItem.Name = "encodeToolStripMenuItem";
             this.encodeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.encodeToolStripMenuItem.Text = "Encode";
+            this.encodeToolStripMenuItem.Click += new System.EventHandler(this.encodeToolStripMenuItem_Click);
             // 
             // indexBits
             // 
