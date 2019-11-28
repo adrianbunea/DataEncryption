@@ -29,11 +29,6 @@ namespace LZ77
             }
         }
 
-        public LZ77()
-        {
-            
-        }
-
         public void Encode(string fileToBeEncoded)
         {
             FileStream fs = new FileStream(fileToBeEncoded, FileMode.Open);
@@ -54,8 +49,10 @@ namespace LZ77
         public void Decode(string fileToBeDecoded)
         {
             reader = new BitReader(fileToBeDecoded);
+            writer = new BitWriter(fileToBeDecoded + ".decoded.txt");
             ReadHeader();
-            ReadTokens();
+            ReadTokens(fileToBeDecoded);
+            WriteDecodedFile();
         }
 
         private void CreateTokens()
@@ -120,12 +117,61 @@ namespace LZ77
 
         private void ReadHeader()
         {
-
+            offsetBits = reader.ReadNBits(4);
+            lengthBits = reader.ReadNBits(3);
         }
 
-        private void ReadTokens()
+        private void ReadTokens(string fileToBeDecoded)
         {
+            tokens = new List<Token>();
+            FileInfo info = new FileInfo(fileToBeDecoded);
+            long totalNumberOfBits = info.Length*8;
+            long readBits = 7;
+            while (readBits < totalNumberOfBits)
+            {
+                Token token = new Token();
+                token.offset = (int)reader.ReadNBits((int)offsetBits);
+                token.length = (int)reader.ReadNBits((int)lengthBits);
+                token.value = (byte)reader.ReadNBits(8);
+                tokens.Add(token);
+                readBits += offsetBits + lengthBits + 8;
+            }
+        }
 
+        private void WriteDecodedFile()
+        {
+            List<byte> previousBytes = new List<byte>();
+            int maxSize = (int)Math.Pow(2, 16) - 1;
+
+            foreach (Token token in tokens)
+            {
+                if (token.offset == 0)
+                {
+                    writer.WriteNBits(token.value, 8);
+                    previousBytes.Add(token.value);
+                }
+                else
+                {
+                    int startIndex = previousBytes.Count - 1 - token.offset;
+                    startIndex = startIndex < 0 ? 0 : startIndex;
+
+                    for (int i = startIndex; i < startIndex + token.length; i++)
+                    {
+                        writer.WriteNBits(previousBytes[i], 8);
+                        previousBytes.Add(previousBytes[i]);
+                    }
+
+                    writer.WriteNBits(token.value, 8);
+                    previousBytes.Add(token.value);
+                }
+
+                while (previousBytes.Count > maxSize)
+                {
+                    previousBytes.RemoveAt(0);
+                }
+            }
+
+            writer.Dispose();
         }
     }
 }
