@@ -36,6 +36,7 @@ namespace LZW
         private void encodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             lzw = new LZW();
+            lzw.indexBits = (int)indexBits.Value;
             if (radioButtonEmpty.Checked)
             {
                 lzw.Strategy = 0;

@@ -104,11 +104,6 @@
             // 
             // indexBits
             // 
-            this.indexBits.Increment = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
             this.indexBits.Location = new System.Drawing.Point(92, 34);
             this.indexBits.Margin = new System.Windows.Forms.Padding(10);
             this.indexBits.Maximum = new decimal(new int[] {
@@ -116,9 +111,19 @@
             0,
             0,
             0});
+            this.indexBits.Minimum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
             this.indexBits.Name = "indexBits";
             this.indexBits.Size = new System.Drawing.Size(43, 20);
             this.indexBits.TabIndex = 1;
+            this.indexBits.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
             // 
             // labelIndexBits
             // 
