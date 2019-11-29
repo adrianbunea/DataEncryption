@@ -10,13 +10,14 @@ namespace LZW
 {
     class LZW
     {
+        int currentBit;
         string fileToBeEncoded;
+        string fileToBeDecoded;
         BitReader reader;
         BitWriter writer;
 
         public int indexBits;
         public List<string> Indexes { get; }
-        private List<int> indexes;
 
         public int Strategy
         {
@@ -27,36 +28,49 @@ namespace LZW
         }
         private int strategy;
 
-        List<string> dictionary;
+        Dictionary<int, string> dictionary;
 
         public LZW()
         {
-            dictionary = new List<string>();
+            dictionary = new Dictionary<int, string>();
         }
 
-        public void Encode(string filepath)
+        public void Encode(string fileToBeEncoded)
         {
-            fileToBeEncoded = filepath;
+            this.fileToBeEncoded = fileToBeEncoded;
             writer = new BitWriter(fileToBeEncoded + ".lzw");
             InitializeDictionary();
-            FillDictionary();
+            WriteHeader();
+            WriteEncodedFile();
             writer.Dispose();
         }
 
-        public void Decode(string filepath)
+        public void Decode(string fileToBeDecoded)
         {
+            this.fileToBeDecoded = fileToBeDecoded;
+            reader = new BitReader(fileToBeDecoded);
+            writer = new BitWriter(fileToBeDecoded + ".decoded.txt");
             InitializeDictionary();
+            ReadHeader();
+            WriteDecodedFile();
+            writer.Dispose();
         }
 
         private void InitializeDictionary()
         {
             for (int i = 0; i < 255; i++)
             {
-                dictionary.Add(((char)i).ToString());
+                dictionary.Add(i, ((char)i).ToString());
             }
         }
 
-        private void FillDictionary()
+        private void WriteHeader()
+        {
+            writer.WriteNBits((uint)indexBits, 4);
+            writer.WriteNBits((uint)strategy, 1);
+        }
+
+        private void WriteEncodedFile()
         {
             string symbol;
             char currentCharacter;
@@ -69,20 +83,72 @@ namespace LZW
                 {
                     currentCharacter = (char)value;
 
-                    if (dictionary.Contains(symbol + currentCharacter))
+                    if (dictionary.ContainsValue(symbol + currentCharacter))
                     {
                         symbol += currentCharacter;
                     }
                     else
                     {
-                        writer.WriteNBits((uint)dictionary.IndexOf(currentCharacter.ToString()), indexBits);
-                        dictionary.Add(symbol + currentCharacter);
+                        writer.WriteNBits((uint)dictionary.KeyByValue(currentCharacter.ToString()), indexBits);
+                        dictionary.Add(dictionary.Count, symbol + currentCharacter);
                         symbol = currentCharacter.ToString();
                     }
                 }
 
-                writer.WriteNBits((uint)dictionary.IndexOf(((char)value).ToString()), indexBits);
+                writer.WriteNBits((uint)dictionary.KeyByValue(((char)value).ToString()), indexBits);
             }
+        }
+
+        private void ReadHeader()
+        {
+            indexBits = (int)reader.ReadNBits(4);
+            strategy = (int)reader.ReadNBits(1);
+        }
+
+        private void WriteDecodedFile()
+        {
+            string symbol;
+            string temp = "";
+            int index;
+            currentBit = 5;
+
+            while (CanReadFromFile())
+            {
+                index = (int)reader.ReadNBits(indexBits);
+                currentBit += indexBits;
+                if (dictionary.ContainsKey(index))
+                {
+                    symbol = dictionary[index];
+                    foreach (string character in symbol.Split())
+                    {
+                        writer.WriteNBits(char.Parse(character), 8);
+                    }
+                    dictionary.Add(dictionary.Count, temp + symbol[0]);
+                }
+                else
+                {
+                    if (index > dictionary.Count)
+                    {
+                        break;
+                    }
+
+                    symbol = temp + temp[0];
+                    foreach (string character in symbol.Split())
+                    {
+                        writer.WriteNBits(char.Parse(character), 8);
+                    }
+
+                    dictionary.Add(dictionary.Count, symbol);
+                }
+
+                temp = symbol;
+            }
+        }
+
+        private bool CanReadFromFile()
+        {
+            FileInfo info = new FileInfo(fileToBeDecoded);
+            return currentBit < info.Length * 8 ? true : false;
         }
     }
 }
