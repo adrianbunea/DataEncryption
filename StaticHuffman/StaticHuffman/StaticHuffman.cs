@@ -116,13 +116,16 @@ namespace StaticHuffman
             writer = new BitWriter(fileToBeEncoded + ".hs");
             WriteHeader();
 
-            using (FileStream fs = new FileStream(fileToBeEncoded, FileMode.Open))
+            if (model.entries.Count > 1)
             {
-                for (int i = 0; i < fs.Length; i++)
+                using (FileStream fs = new FileStream(fileToBeEncoded, FileMode.Open))
                 {
-                    byte readByte = (byte)fs.ReadByte();
-                    string codification = model.entries[readByte];
-                    writer.WriteNBits(Convert.ToUInt32(codification, 2), codification.Length);
+                    for (int i = 0; i < fs.Length; i++)
+                    {
+                        byte readByte = (byte)fs.ReadByte();
+                        string codification = model.entries[readByte];
+                        writer.WriteNBits(Convert.ToUInt32(codification, 2), codification.Length);
+                    }
                 }
             }
 
@@ -141,15 +144,26 @@ namespace StaticHuffman
             string extension = fileToBeDecoded.Substring(fileToBeDecoded.Length - 7).Replace(".hs", "");
             writer = new BitWriter(fileToBeDecoded + DateTime.Now.ToString("dd-MM-yyyy-HH-mm") + extension);
 
-
-            string readCode = "";
-            for (int i = readBits; i < info.Length*8; i++)
+            if (model.entries.Count > 1)
             {
-                readCode += reader.ReadBit();
-                if (invertedModelEntries.ContainsKey(readCode))
+                string readCode = "";
+                for (int i = readBits; i < info.Length * 8; i++)
                 {
-                    writer.WriteNBits((uint)invertedModelEntries[readCode], 8);
-                    readCode = "";
+                    readCode += reader.ReadBit();
+                    if (invertedModelEntries.ContainsKey(readCode))
+                    {
+                        writer.WriteNBits((uint)invertedModelEntries[readCode], 8);
+                        readCode = "";
+                    }
+                }
+            }
+            else
+            {
+                byte singleCharacter = (byte)model.entries.Keys.First();
+                int singleCharacterFrequency = statistic[singleCharacter];
+                for (int i = 0; i < singleCharacterFrequency; i++)
+                {
+                    writer.WriteNBits(singleCharacter, 8);
                 }
             }
 

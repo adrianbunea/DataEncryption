@@ -25,7 +25,12 @@ namespace LZ77
         {
             get
             {
-                return new List<string>();
+                List<string> tokens = new List<string>();
+                foreach (Token token in this.tokens)
+                {
+                    tokens.Add(String.Format("{0}, {1}, {2}", token.offset.ToString(), token.length.ToString(), ((char)token.value).ToString()));
+                }
+                return tokens;
             }
         }
 
@@ -39,8 +44,8 @@ namespace LZ77
             LAB.Length = (int)Math.Pow(2, lengthBits) - 1;
 
             CreateTokens();
-
-            writer = new BitWriter(fileToBeEncoded + ".lz77");
+            fs.Dispose();
+            writer = new BitWriter(string.Format("{0}.o{1}i{1}.lz77", fileToBeEncoded, offsetBits, lengthBits));
             WriteHeader();
             WriteTokens();
             writer.Dispose();
@@ -49,7 +54,8 @@ namespace LZ77
         public void Decode(string fileToBeDecoded)
         {
             reader = new BitReader(fileToBeDecoded);
-            writer = new BitWriter(fileToBeDecoded + ".decoded.txt");
+
+            writer = new BitWriter(fileToBeDecoded + ".decoded");
             ReadHeader();
             ReadTokens(fileToBeDecoded);
             WriteDecodedFile();

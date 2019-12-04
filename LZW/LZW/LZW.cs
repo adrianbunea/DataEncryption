@@ -17,7 +17,18 @@ namespace LZW
         BitWriter writer;
 
         public int indexBits;
-        public List<string> Indexes { get; }
+        public List<string> Indexes
+        {
+            get
+            {
+                List<string> indexes = new List<string>();
+                foreach (KeyValuePair<int, string> entry in dictionary)
+                {
+                    indexes.Add(string.Format("{0}, {1}", entry.Key.ToString(), entry.Value));
+                }
+                return indexes;
+            }
+        }
 
         public int Strategy
         {

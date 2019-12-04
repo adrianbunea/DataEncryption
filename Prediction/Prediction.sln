@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prediction", "Prediction\Prediction.csproj", "{B0FE712A-930B-465F-9346-C3B9DA1B914C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0FE712A-930B-465F-9346-C3B9DA1B914C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0FE712A-930B-465F-9346-C3B9DA1B914C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0FE712A-930B-465F-9346-C3B9DA1B914C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0FE712A-930B-465F-9346-C3B9DA1B914C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7ADE835F-4229-4FAB-B5AE-59728AFF67E6}
+	EndGlobalSection
+EndGlobal
