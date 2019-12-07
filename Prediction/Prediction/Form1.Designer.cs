@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea21 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend21 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title21 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.pictureBoxOriginalImage = new System.Windows.Forms.PictureBox();
             this.pictureBoxErrorMatrix = new System.Windows.Forms.PictureBox();
             this.pictureBoxDecodedImage = new System.Windows.Forms.PictureBox();
@@ -109,6 +109,7 @@
             this.buttonLoadImage.TabIndex = 3;
             this.buttonLoadImage.Text = "Load Image";
             this.buttonLoadImage.UseVisualStyleBackColor = true;
+            this.buttonLoadImage.Click += new System.EventHandler(this.buttonLoadImage_Click);
             // 
             // buttonPredict
             // 
@@ -118,6 +119,7 @@
             this.buttonPredict.TabIndex = 4;
             this.buttonPredict.Text = "Predict";
             this.buttonPredict.UseVisualStyleBackColor = true;
+            this.buttonPredict.Click += new System.EventHandler(this.buttonPredict_Click);
             // 
             // buttonStore
             // 
@@ -127,6 +129,7 @@
             this.buttonStore.TabIndex = 5;
             this.buttonStore.Text = "Store";
             this.buttonStore.UseVisualStyleBackColor = true;
+            this.buttonStore.Click += new System.EventHandler(this.buttonStore_Click);
             // 
             // numericUpDownScaleEM
             // 
@@ -173,6 +176,7 @@
             this.buttonShowErrorMatrix.TabIndex = 8;
             this.buttonShowErrorMatrix.Text = "Show Error Matrix";
             this.buttonShowErrorMatrix.UseVisualStyleBackColor = true;
+            this.buttonShowErrorMatrix.Click += new System.EventHandler(this.buttonShowErrorMatrix_Click);
             // 
             // buttonSaveDecoded
             // 
@@ -182,6 +186,7 @@
             this.buttonSaveDecoded.TabIndex = 11;
             this.buttonSaveDecoded.Text = "Save Decoded";
             this.buttonSaveDecoded.UseVisualStyleBackColor = true;
+            this.buttonSaveDecoded.Click += new System.EventHandler(this.buttonSaveDecoded_Click);
             // 
             // buttonDecode
             // 
@@ -191,6 +196,7 @@
             this.buttonDecode.TabIndex = 10;
             this.buttonDecode.Text = "Decode";
             this.buttonDecode.UseVisualStyleBackColor = true;
+            this.buttonDecode.Click += new System.EventHandler(this.buttonDecode_Click);
             // 
             // buttonLoadEncoded
             // 
@@ -200,6 +206,7 @@
             this.buttonLoadEncoded.TabIndex = 9;
             this.buttonLoadEncoded.Text = "Load Encoded";
             this.buttonLoadEncoded.UseVisualStyleBackColor = true;
+            this.buttonLoadEncoded.Click += new System.EventHandler(this.buttonLoadEncoded_Click);
             // 
             // panelPredictor
             // 
@@ -227,6 +234,7 @@
             this.radioButtonPredictor9.TabStop = true;
             this.radioButtonPredictor9.Text = "jpegLS";
             this.radioButtonPredictor9.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor9.CheckedChanged += new System.EventHandler(this.radioButtonPredictor9_CheckedChanged);
             // 
             // radioButtonPredictor8
             // 
@@ -238,6 +246,7 @@
             this.radioButtonPredictor8.TabStop = true;
             this.radioButtonPredictor8.Text = "(A + B) / 2";
             this.radioButtonPredictor8.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor8.CheckedChanged += new System.EventHandler(this.radioButtonPredictor8_CheckedChanged);
             // 
             // radioButtonPredictor7
             // 
@@ -249,6 +258,7 @@
             this.radioButtonPredictor7.TabStop = true;
             this.radioButtonPredictor7.Text = "B + (A - C) / 2";
             this.radioButtonPredictor7.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor7.CheckedChanged += new System.EventHandler(this.radioButtonPredictor7_CheckedChanged);
             // 
             // radioButtonPredictor6
             // 
@@ -260,6 +270,7 @@
             this.radioButtonPredictor6.TabStop = true;
             this.radioButtonPredictor6.Text = "A + (B - C) / 2";
             this.radioButtonPredictor6.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor6.CheckedChanged += new System.EventHandler(this.radioButtonPredictor6_CheckedChanged);
             // 
             // radioButtonPredictor5
             // 
@@ -271,6 +282,7 @@
             this.radioButtonPredictor5.TabStop = true;
             this.radioButtonPredictor5.Text = "A + B + C";
             this.radioButtonPredictor5.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor5.CheckedChanged += new System.EventHandler(this.radioButtonPredictor5_CheckedChanged);
             // 
             // radioButtonPredictor4
             // 
@@ -282,6 +294,7 @@
             this.radioButtonPredictor4.TabStop = true;
             this.radioButtonPredictor4.Text = "C";
             this.radioButtonPredictor4.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor4.CheckedChanged += new System.EventHandler(this.radioButtonPredictor4_CheckedChanged);
             // 
             // radioButtonPredictor3
             // 
@@ -293,6 +306,7 @@
             this.radioButtonPredictor3.TabStop = true;
             this.radioButtonPredictor3.Text = "B";
             this.radioButtonPredictor3.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor3.CheckedChanged += new System.EventHandler(this.radioButtonPredictor3_CheckedChanged);
             // 
             // radioButtonPredictor2
             // 
@@ -304,6 +318,7 @@
             this.radioButtonPredictor2.TabStop = true;
             this.radioButtonPredictor2.Text = "A";
             this.radioButtonPredictor2.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor2.CheckedChanged += new System.EventHandler(this.radioButtonPredictor2_CheckedChanged);
             // 
             // radioButtonPredictor1
             // 
@@ -315,6 +330,7 @@
             this.radioButtonPredictor1.TabStop = true;
             this.radioButtonPredictor1.Text = "128";
             this.radioButtonPredictor1.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor1.CheckedChanged += new System.EventHandler(this.radioButtonPredictor1_CheckedChanged);
             // 
             // labelPredictor
             // 
@@ -345,6 +361,7 @@
             this.radioButtonHistogram3.TabStop = true;
             this.radioButtonHistogram3.Text = "Decoded";
             this.radioButtonHistogram3.UseVisualStyleBackColor = true;
+            this.radioButtonHistogram3.CheckedChanged += new System.EventHandler(this.radioButtonHistogram3_CheckedChanged);
             // 
             // radioButtonHistogram2
             // 
@@ -356,6 +373,7 @@
             this.radioButtonHistogram2.TabStop = true;
             this.radioButtonHistogram2.Text = "Error Prediction";
             this.radioButtonHistogram2.UseVisualStyleBackColor = true;
+            this.radioButtonHistogram2.CheckedChanged += new System.EventHandler(this.radioButtonHistogram2_CheckedChanged);
             // 
             // radioButtonHistogram1
             // 
@@ -367,6 +385,7 @@
             this.radioButtonHistogram1.TabStop = true;
             this.radioButtonHistogram1.Text = "Original";
             this.radioButtonHistogram1.UseVisualStyleBackColor = true;
+            this.radioButtonHistogram1.CheckedChanged += new System.EventHandler(this.radioButtonHistogram1_CheckedChanged);
             // 
             // labelHistogram
             // 
@@ -422,52 +441,53 @@
             this.buttonShowHistogram.TabIndex = 17;
             this.buttonShowHistogram.Text = "Show Histogram";
             this.buttonShowHistogram.UseVisualStyleBackColor = true;
+            this.buttonShowHistogram.Click += new System.EventHandler(this.buttonShowHistogram_Click);
             // 
             // chart1
             // 
-            chartArea1.AxisX.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
-            chartArea1.AxisX.Interval = 128D;
-            chartArea1.AxisX.IsStartedFromZero = false;
-            chartArea1.AxisX.MajorGrid.Enabled = false;
-            chartArea1.AxisX.MajorTickMark.Interval = 32D;
-            chartArea1.AxisX.Maximum = 256D;
-            chartArea1.AxisX.Minimum = -256D;
-            chartArea1.AxisX.Title = "Intensity";
-            chartArea1.AxisY.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
-            chartArea1.AxisY.Interval = 65536D;
-            chartArea1.AxisY.MajorGrid.Enabled = false;
-            chartArea1.AxisY.MajorTickMark.Interval = 16384D;
-            chartArea1.AxisY.Maximum = 65536D;
-            chartArea1.AxisY.Minimum = 0D;
-            chartArea1.AxisY.Title = "Frequency (# of Pixels)";
-            chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Near;
-            chartArea1.InnerPlotPosition.Auto = false;
-            chartArea1.InnerPlotPosition.Height = 73F;
-            chartArea1.InnerPlotPosition.Width = 83F;
-            chartArea1.InnerPlotPosition.X = 10F;
-            chartArea1.InnerPlotPosition.Y = 7F;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 84F;
-            chartArea1.Position.Width = 94F;
-            chartArea1.Position.X = 5F;
-            chartArea1.Position.Y = 15F;
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Enabled = false;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea21.AxisX.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
+            chartArea21.AxisX.Interval = 128D;
+            chartArea21.AxisX.IsStartedFromZero = false;
+            chartArea21.AxisX.MajorGrid.Enabled = false;
+            chartArea21.AxisX.MajorTickMark.Interval = 32D;
+            chartArea21.AxisX.Maximum = 256D;
+            chartArea21.AxisX.Minimum = -256D;
+            chartArea21.AxisX.Title = "Intensity";
+            chartArea21.AxisY.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
+            chartArea21.AxisY.Interval = 65536D;
+            chartArea21.AxisY.MajorGrid.Enabled = false;
+            chartArea21.AxisY.MajorTickMark.Interval = 16384D;
+            chartArea21.AxisY.Maximum = 65536D;
+            chartArea21.AxisY.Minimum = 0D;
+            chartArea21.AxisY.Title = "Frequency (# of Pixels)";
+            chartArea21.AxisY.TitleAlignment = System.Drawing.StringAlignment.Near;
+            chartArea21.InnerPlotPosition.Auto = false;
+            chartArea21.InnerPlotPosition.Height = 73F;
+            chartArea21.InnerPlotPosition.Width = 83F;
+            chartArea21.InnerPlotPosition.X = 10F;
+            chartArea21.InnerPlotPosition.Y = 7F;
+            chartArea21.Name = "ChartArea1";
+            chartArea21.Position.Auto = false;
+            chartArea21.Position.Height = 84F;
+            chartArea21.Position.Width = 94F;
+            chartArea21.Position.X = 5F;
+            chartArea21.Position.Y = 15F;
+            this.chart1.ChartAreas.Add(chartArea21);
+            legend21.Enabled = false;
+            legend21.Name = "Legend1";
+            this.chart1.Legends.Add(legend21);
             this.chart1.Location = new System.Drawing.Point(290, 314);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series21.ChartArea = "ChartArea1";
+            series21.Legend = "Legend1";
+            series21.Name = "Series1";
+            this.chart1.Series.Add(series21);
             this.chart1.Size = new System.Drawing.Size(502, 225);
             this.chart1.TabIndex = 18;
             this.chart1.Text = "chart1";
-            title1.Name = "Title1";
-            title1.Text = "Histogram";
-            this.chart1.Titles.Add(title1);
+            title21.Name = "Title1";
+            title21.Text = "Histogram";
+            this.chart1.Titles.Add(title21);
             // 
             // Form1
             // 
