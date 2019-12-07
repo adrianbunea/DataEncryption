@@ -31,6 +31,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.pictureBoxOriginalImage = new System.Windows.Forms.PictureBox();
             this.pictureBoxErrorMatrix = new System.Windows.Forms.PictureBox();
             this.pictureBoxDecodedImage = new System.Windows.Forms.PictureBox();
@@ -44,16 +45,16 @@
             this.buttonDecode = new System.Windows.Forms.Button();
             this.buttonLoadEncoded = new System.Windows.Forms.Button();
             this.panelPredictor = new System.Windows.Forms.Panel();
-            this.labelPredictor = new System.Windows.Forms.Label();
-            this.radioButtonPredictor1 = new System.Windows.Forms.RadioButton();
-            this.radioButtonPredictor2 = new System.Windows.Forms.RadioButton();
-            this.radioButtonPredictor3 = new System.Windows.Forms.RadioButton();
-            this.radioButtonPredictor4 = new System.Windows.Forms.RadioButton();
-            this.radioButtonPredictor5 = new System.Windows.Forms.RadioButton();
-            this.radioButtonPredictor6 = new System.Windows.Forms.RadioButton();
-            this.radioButtonPredictor7 = new System.Windows.Forms.RadioButton();
-            this.radioButtonPredictor8 = new System.Windows.Forms.RadioButton();
             this.radioButtonPredictor9 = new System.Windows.Forms.RadioButton();
+            this.radioButtonPredictor8 = new System.Windows.Forms.RadioButton();
+            this.radioButtonPredictor7 = new System.Windows.Forms.RadioButton();
+            this.radioButtonPredictor6 = new System.Windows.Forms.RadioButton();
+            this.radioButtonPredictor5 = new System.Windows.Forms.RadioButton();
+            this.radioButtonPredictor4 = new System.Windows.Forms.RadioButton();
+            this.radioButtonPredictor3 = new System.Windows.Forms.RadioButton();
+            this.radioButtonPredictor2 = new System.Windows.Forms.RadioButton();
+            this.radioButtonPredictor1 = new System.Windows.Forms.RadioButton();
+            this.labelPredictor = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButtonHistogram3 = new System.Windows.Forms.RadioButton();
             this.radioButtonHistogram2 = new System.Windows.Forms.RadioButton();
@@ -75,6 +76,7 @@
             // 
             // pictureBoxOriginalImage
             // 
+            this.pictureBoxOriginalImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxOriginalImage.Location = new System.Drawing.Point(12, 12);
             this.pictureBoxOriginalImage.Name = "pictureBoxOriginalImage";
             this.pictureBoxOriginalImage.Size = new System.Drawing.Size(256, 256);
@@ -83,6 +85,7 @@
             // 
             // pictureBoxErrorMatrix
             // 
+            this.pictureBoxErrorMatrix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxErrorMatrix.Location = new System.Drawing.Point(274, 12);
             this.pictureBoxErrorMatrix.Name = "pictureBoxErrorMatrix";
             this.pictureBoxErrorMatrix.Size = new System.Drawing.Size(256, 256);
@@ -91,6 +94,7 @@
             // 
             // pictureBoxDecodedImage
             // 
+            this.pictureBoxDecodedImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxDecodedImage.Location = new System.Drawing.Point(536, 12);
             this.pictureBoxDecodedImage.Name = "pictureBoxDecodedImage";
             this.pictureBoxDecodedImage.Size = new System.Drawing.Size(256, 256);
@@ -213,91 +217,16 @@
             this.panelPredictor.Size = new System.Drawing.Size(100, 209);
             this.panelPredictor.TabIndex = 12;
             // 
-            // labelPredictor
+            // radioButtonPredictor9
             // 
-            this.labelPredictor.AutoSize = true;
-            this.labelPredictor.Location = new System.Drawing.Point(12, 314);
-            this.labelPredictor.Name = "labelPredictor";
-            this.labelPredictor.Size = new System.Drawing.Size(49, 13);
-            this.labelPredictor.TabIndex = 13;
-            this.labelPredictor.Text = "Predictor";
-            // 
-            // radioButtonPredictor1
-            // 
-            this.radioButtonPredictor1.AutoSize = true;
-            this.radioButtonPredictor1.Location = new System.Drawing.Point(3, 3);
-            this.radioButtonPredictor1.Name = "radioButtonPredictor1";
-            this.radioButtonPredictor1.Size = new System.Drawing.Size(43, 17);
-            this.radioButtonPredictor1.TabIndex = 0;
-            this.radioButtonPredictor1.TabStop = true;
-            this.radioButtonPredictor1.Text = "128";
-            this.radioButtonPredictor1.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPredictor2
-            // 
-            this.radioButtonPredictor2.AutoSize = true;
-            this.radioButtonPredictor2.Location = new System.Drawing.Point(3, 26);
-            this.radioButtonPredictor2.Name = "radioButtonPredictor2";
-            this.radioButtonPredictor2.Size = new System.Drawing.Size(32, 17);
-            this.radioButtonPredictor2.TabIndex = 1;
-            this.radioButtonPredictor2.TabStop = true;
-            this.radioButtonPredictor2.Text = "A";
-            this.radioButtonPredictor2.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPredictor3
-            // 
-            this.radioButtonPredictor3.AutoSize = true;
-            this.radioButtonPredictor3.Location = new System.Drawing.Point(3, 49);
-            this.radioButtonPredictor3.Name = "radioButtonPredictor3";
-            this.radioButtonPredictor3.Size = new System.Drawing.Size(32, 17);
-            this.radioButtonPredictor3.TabIndex = 2;
-            this.radioButtonPredictor3.TabStop = true;
-            this.radioButtonPredictor3.Text = "B";
-            this.radioButtonPredictor3.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPredictor4
-            // 
-            this.radioButtonPredictor4.AutoSize = true;
-            this.radioButtonPredictor4.Location = new System.Drawing.Point(3, 72);
-            this.radioButtonPredictor4.Name = "radioButtonPredictor4";
-            this.radioButtonPredictor4.Size = new System.Drawing.Size(32, 17);
-            this.radioButtonPredictor4.TabIndex = 3;
-            this.radioButtonPredictor4.TabStop = true;
-            this.radioButtonPredictor4.Text = "C";
-            this.radioButtonPredictor4.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPredictor5
-            // 
-            this.radioButtonPredictor5.AutoSize = true;
-            this.radioButtonPredictor5.Location = new System.Drawing.Point(3, 95);
-            this.radioButtonPredictor5.Name = "radioButtonPredictor5";
-            this.radioButtonPredictor5.Size = new System.Drawing.Size(70, 17);
-            this.radioButtonPredictor5.TabIndex = 4;
-            this.radioButtonPredictor5.TabStop = true;
-            this.radioButtonPredictor5.Text = "A + B + C";
-            this.radioButtonPredictor5.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPredictor6
-            // 
-            this.radioButtonPredictor6.AutoSize = true;
-            this.radioButtonPredictor6.Location = new System.Drawing.Point(3, 118);
-            this.radioButtonPredictor6.Name = "radioButtonPredictor6";
-            this.radioButtonPredictor6.Size = new System.Drawing.Size(90, 17);
-            this.radioButtonPredictor6.TabIndex = 5;
-            this.radioButtonPredictor6.TabStop = true;
-            this.radioButtonPredictor6.Text = "A + (B - C) / 2";
-            this.radioButtonPredictor6.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPredictor7
-            // 
-            this.radioButtonPredictor7.AutoSize = true;
-            this.radioButtonPredictor7.Location = new System.Drawing.Point(3, 141);
-            this.radioButtonPredictor7.Name = "radioButtonPredictor7";
-            this.radioButtonPredictor7.Size = new System.Drawing.Size(90, 17);
-            this.radioButtonPredictor7.TabIndex = 6;
-            this.radioButtonPredictor7.TabStop = true;
-            this.radioButtonPredictor7.Text = "B + (A - C) / 2";
-            this.radioButtonPredictor7.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor9.AutoSize = true;
+            this.radioButtonPredictor9.Location = new System.Drawing.Point(3, 187);
+            this.radioButtonPredictor9.Name = "radioButtonPredictor9";
+            this.radioButtonPredictor9.Size = new System.Drawing.Size(58, 17);
+            this.radioButtonPredictor9.TabIndex = 8;
+            this.radioButtonPredictor9.TabStop = true;
+            this.radioButtonPredictor9.Text = "jpegLS";
+            this.radioButtonPredictor9.UseVisualStyleBackColor = true;
             // 
             // radioButtonPredictor8
             // 
@@ -310,16 +239,91 @@
             this.radioButtonPredictor8.Text = "(A + B) / 2";
             this.radioButtonPredictor8.UseVisualStyleBackColor = true;
             // 
-            // radioButtonPredictor9
+            // radioButtonPredictor7
             // 
-            this.radioButtonPredictor9.AutoSize = true;
-            this.radioButtonPredictor9.Location = new System.Drawing.Point(3, 187);
-            this.radioButtonPredictor9.Name = "radioButtonPredictor9";
-            this.radioButtonPredictor9.Size = new System.Drawing.Size(58, 17);
-            this.radioButtonPredictor9.TabIndex = 8;
-            this.radioButtonPredictor9.TabStop = true;
-            this.radioButtonPredictor9.Text = "jpegLS";
-            this.radioButtonPredictor9.UseVisualStyleBackColor = true;
+            this.radioButtonPredictor7.AutoSize = true;
+            this.radioButtonPredictor7.Location = new System.Drawing.Point(3, 141);
+            this.radioButtonPredictor7.Name = "radioButtonPredictor7";
+            this.radioButtonPredictor7.Size = new System.Drawing.Size(90, 17);
+            this.radioButtonPredictor7.TabIndex = 6;
+            this.radioButtonPredictor7.TabStop = true;
+            this.radioButtonPredictor7.Text = "B + (A - C) / 2";
+            this.radioButtonPredictor7.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPredictor6
+            // 
+            this.radioButtonPredictor6.AutoSize = true;
+            this.radioButtonPredictor6.Location = new System.Drawing.Point(3, 118);
+            this.radioButtonPredictor6.Name = "radioButtonPredictor6";
+            this.radioButtonPredictor6.Size = new System.Drawing.Size(90, 17);
+            this.radioButtonPredictor6.TabIndex = 5;
+            this.radioButtonPredictor6.TabStop = true;
+            this.radioButtonPredictor6.Text = "A + (B - C) / 2";
+            this.radioButtonPredictor6.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPredictor5
+            // 
+            this.radioButtonPredictor5.AutoSize = true;
+            this.radioButtonPredictor5.Location = new System.Drawing.Point(3, 95);
+            this.radioButtonPredictor5.Name = "radioButtonPredictor5";
+            this.radioButtonPredictor5.Size = new System.Drawing.Size(70, 17);
+            this.radioButtonPredictor5.TabIndex = 4;
+            this.radioButtonPredictor5.TabStop = true;
+            this.radioButtonPredictor5.Text = "A + B + C";
+            this.radioButtonPredictor5.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPredictor4
+            // 
+            this.radioButtonPredictor4.AutoSize = true;
+            this.radioButtonPredictor4.Location = new System.Drawing.Point(3, 72);
+            this.radioButtonPredictor4.Name = "radioButtonPredictor4";
+            this.radioButtonPredictor4.Size = new System.Drawing.Size(32, 17);
+            this.radioButtonPredictor4.TabIndex = 3;
+            this.radioButtonPredictor4.TabStop = true;
+            this.radioButtonPredictor4.Text = "C";
+            this.radioButtonPredictor4.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPredictor3
+            // 
+            this.radioButtonPredictor3.AutoSize = true;
+            this.radioButtonPredictor3.Location = new System.Drawing.Point(3, 49);
+            this.radioButtonPredictor3.Name = "radioButtonPredictor3";
+            this.radioButtonPredictor3.Size = new System.Drawing.Size(32, 17);
+            this.radioButtonPredictor3.TabIndex = 2;
+            this.radioButtonPredictor3.TabStop = true;
+            this.radioButtonPredictor3.Text = "B";
+            this.radioButtonPredictor3.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPredictor2
+            // 
+            this.radioButtonPredictor2.AutoSize = true;
+            this.radioButtonPredictor2.Location = new System.Drawing.Point(3, 26);
+            this.radioButtonPredictor2.Name = "radioButtonPredictor2";
+            this.radioButtonPredictor2.Size = new System.Drawing.Size(32, 17);
+            this.radioButtonPredictor2.TabIndex = 1;
+            this.radioButtonPredictor2.TabStop = true;
+            this.radioButtonPredictor2.Text = "A";
+            this.radioButtonPredictor2.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonPredictor1
+            // 
+            this.radioButtonPredictor1.AutoSize = true;
+            this.radioButtonPredictor1.Location = new System.Drawing.Point(3, 3);
+            this.radioButtonPredictor1.Name = "radioButtonPredictor1";
+            this.radioButtonPredictor1.Size = new System.Drawing.Size(43, 17);
+            this.radioButtonPredictor1.TabIndex = 0;
+            this.radioButtonPredictor1.TabStop = true;
+            this.radioButtonPredictor1.Text = "128";
+            this.radioButtonPredictor1.UseVisualStyleBackColor = true;
+            // 
+            // labelPredictor
+            // 
+            this.labelPredictor.AutoSize = true;
+            this.labelPredictor.Location = new System.Drawing.Point(12, 314);
+            this.labelPredictor.Name = "labelPredictor";
+            this.labelPredictor.Size = new System.Drawing.Size(49, 13);
+            this.labelPredictor.TabIndex = 13;
+            this.labelPredictor.Text = "Predictor";
             // 
             // panel1
             // 
@@ -437,7 +441,17 @@
             chartArea1.AxisY.Minimum = 0D;
             chartArea1.AxisY.Title = "Frequency (# of Pixels)";
             chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Near;
+            chartArea1.InnerPlotPosition.Auto = false;
+            chartArea1.InnerPlotPosition.Height = 73F;
+            chartArea1.InnerPlotPosition.Width = 83F;
+            chartArea1.InnerPlotPosition.X = 10F;
+            chartArea1.InnerPlotPosition.Y = 7F;
             chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 84F;
+            chartArea1.Position.Width = 94F;
+            chartArea1.Position.X = 5F;
+            chartArea1.Position.Y = 15F;
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Enabled = false;
             legend1.Name = "Legend1";
@@ -451,6 +465,9 @@
             this.chart1.Size = new System.Drawing.Size(502, 225);
             this.chart1.TabIndex = 18;
             this.chart1.Text = "chart1";
+            title1.Name = "Title1";
+            title1.Text = "Histogram";
+            this.chart1.Titles.Add(title1);
             // 
             // Form1
             // 
