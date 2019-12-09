@@ -12,6 +12,9 @@ namespace Prediction
 {
     public partial class Form1 : Form
     {
+        string fileToBeEncoded;
+        string fileToBeDecoded;
+
         public Form1()
         {
             InitializeComponent();
@@ -19,7 +22,15 @@ namespace Prediction
 
         private void buttonLoadImage_Click(object sender, EventArgs e)
         {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.bmp;*.tiff;*.jpg;*.jpeg";
 
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    fileToBeEncoded = openFileDialog.FileName;
+                }
+            }
         }
 
         private void buttonPredict_Click(object sender, EventArgs e)
@@ -39,7 +50,13 @@ namespace Prediction
 
         private void buttonLoadEncoded_Click(object sender, EventArgs e)
         {
-
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    fileToBeDecoded = openFileDialog.FileName;
+                }
+            }
         }
 
         private void buttonDecode_Click(object sender, EventArgs e)
