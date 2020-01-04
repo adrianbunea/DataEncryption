@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Prediction.Predictors;
 
 namespace Prediction
 {
@@ -14,9 +15,11 @@ namespace Prediction
     {
         string fileToBeEncoded;
         string fileToBeDecoded;
+        ImagePrediction prediction;
 
         public Form1()
         {
+            prediction = new ImagePrediction();
             InitializeComponent();
         }
 
@@ -29,13 +32,15 @@ namespace Prediction
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     fileToBeEncoded = openFileDialog.FileName;
+                    pictureBoxOriginalImage.Image = Image.FromFile(openFileDialog.FileName);
                 }
             }
         }
 
         private void buttonPredict_Click(object sender, EventArgs e)
         {
-
+            prediction.Predict(fileToBeEncoded);
+            pictureBoxOriginalImage.Image = prediction.PredictionMatrix;
         }
 
         private void buttonStore_Click(object sender, EventArgs e)
@@ -45,7 +50,7 @@ namespace Prediction
 
         private void buttonShowErrorMatrix_Click(object sender, EventArgs e)
         {
-
+            pictureBoxErrorMatrix.Image = prediction.ErrorMatrix;
         }
 
         private void buttonLoadEncoded_Click(object sender, EventArgs e)
@@ -77,47 +82,56 @@ namespace Prediction
         #region Predictor Selection
         private void radioButtonPredictor1_CheckedChanged(object sender, EventArgs e)
         {
-
+            HalfPredictor predictor = new HalfPredictor();
+            prediction.SetPredictor(predictor);
         }
 
         private void radioButtonPredictor2_CheckedChanged(object sender, EventArgs e)
         {
-
+            APredictor predictor = new APredictor();
+            prediction.SetPredictor(predictor);
         }
 
         private void radioButtonPredictor3_CheckedChanged(object sender, EventArgs e)
         {
-
+            BPredictor predictor = new BPredictor();
+            prediction.SetPredictor(predictor);
         }
 
         private void radioButtonPredictor4_CheckedChanged(object sender, EventArgs e)
         {
-
+            CPredictor predictor = new CPredictor();
+            prediction.SetPredictor(predictor);
         }
 
         private void radioButtonPredictor5_CheckedChanged(object sender, EventArgs e)
         {
-
+            ABCPredictor predictor = new ABCPredictor();
+            prediction.SetPredictor(predictor);
         }
 
         private void radioButtonPredictor6_CheckedChanged(object sender, EventArgs e)
         {
-
+            ABC2Predictor predictor = new ABC2Predictor();
+            prediction.SetPredictor(predictor);
         }
 
         private void radioButtonPredictor7_CheckedChanged(object sender, EventArgs e)
         {
-
+            BAC2Predictor predictor = new BAC2Predictor();
+            prediction.SetPredictor(predictor);
         }
 
         private void radioButtonPredictor8_CheckedChanged(object sender, EventArgs e)
         {
-
+            AB2Predictor predictor = new AB2Predictor();
+            prediction.SetPredictor(predictor);
         }
 
         private void radioButtonPredictor9_CheckedChanged(object sender, EventArgs e)
         {
-
+            jpegLSPredictor predictor = new jpegLSPredictor();
+            prediction.SetPredictor(predictor);
         }
         #endregion
 

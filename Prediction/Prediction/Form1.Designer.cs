@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea21 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend21 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title21 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.pictureBoxOriginalImage = new System.Windows.Forms.PictureBox();
             this.pictureBoxErrorMatrix = new System.Windows.Forms.PictureBox();
             this.pictureBoxDecodedImage = new System.Windows.Forms.PictureBox();
@@ -277,10 +277,10 @@
             this.radioButtonPredictor5.AutoSize = true;
             this.radioButtonPredictor5.Location = new System.Drawing.Point(3, 95);
             this.radioButtonPredictor5.Name = "radioButtonPredictor5";
-            this.radioButtonPredictor5.Size = new System.Drawing.Size(70, 17);
+            this.radioButtonPredictor5.Size = new System.Drawing.Size(67, 17);
             this.radioButtonPredictor5.TabIndex = 4;
             this.radioButtonPredictor5.TabStop = true;
-            this.radioButtonPredictor5.Text = "A + B + C";
+            this.radioButtonPredictor5.Text = "A + B - C";
             this.radioButtonPredictor5.UseVisualStyleBackColor = true;
             this.radioButtonPredictor5.CheckedChanged += new System.EventHandler(this.radioButtonPredictor5_CheckedChanged);
             // 
@@ -445,49 +445,49 @@
             // 
             // chart1
             // 
-            chartArea21.AxisX.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
-            chartArea21.AxisX.Interval = 128D;
-            chartArea21.AxisX.IsStartedFromZero = false;
-            chartArea21.AxisX.MajorGrid.Enabled = false;
-            chartArea21.AxisX.MajorTickMark.Interval = 32D;
-            chartArea21.AxisX.Maximum = 256D;
-            chartArea21.AxisX.Minimum = -256D;
-            chartArea21.AxisX.Title = "Intensity";
-            chartArea21.AxisY.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
-            chartArea21.AxisY.Interval = 65536D;
-            chartArea21.AxisY.MajorGrid.Enabled = false;
-            chartArea21.AxisY.MajorTickMark.Interval = 16384D;
-            chartArea21.AxisY.Maximum = 65536D;
-            chartArea21.AxisY.Minimum = 0D;
-            chartArea21.AxisY.Title = "Frequency (# of Pixels)";
-            chartArea21.AxisY.TitleAlignment = System.Drawing.StringAlignment.Near;
-            chartArea21.InnerPlotPosition.Auto = false;
-            chartArea21.InnerPlotPosition.Height = 73F;
-            chartArea21.InnerPlotPosition.Width = 83F;
-            chartArea21.InnerPlotPosition.X = 10F;
-            chartArea21.InnerPlotPosition.Y = 7F;
-            chartArea21.Name = "ChartArea1";
-            chartArea21.Position.Auto = false;
-            chartArea21.Position.Height = 84F;
-            chartArea21.Position.Width = 94F;
-            chartArea21.Position.X = 5F;
-            chartArea21.Position.Y = 15F;
-            this.chart1.ChartAreas.Add(chartArea21);
-            legend21.Enabled = false;
-            legend21.Name = "Legend1";
-            this.chart1.Legends.Add(legend21);
+            chartArea1.AxisX.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
+            chartArea1.AxisX.Interval = 128D;
+            chartArea1.AxisX.IsStartedFromZero = false;
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Interval = 32D;
+            chartArea1.AxisX.Maximum = 256D;
+            chartArea1.AxisX.Minimum = -256D;
+            chartArea1.AxisX.Title = "Intensity";
+            chartArea1.AxisY.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
+            chartArea1.AxisY.Interval = 65536D;
+            chartArea1.AxisY.MajorGrid.Enabled = false;
+            chartArea1.AxisY.MajorTickMark.Interval = 16384D;
+            chartArea1.AxisY.Maximum = 65536D;
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.AxisY.Title = "Frequency (# of Pixels)";
+            chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Near;
+            chartArea1.InnerPlotPosition.Auto = false;
+            chartArea1.InnerPlotPosition.Height = 73F;
+            chartArea1.InnerPlotPosition.Width = 83F;
+            chartArea1.InnerPlotPosition.X = 10F;
+            chartArea1.InnerPlotPosition.Y = 7F;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 84F;
+            chartArea1.Position.Width = 94F;
+            chartArea1.Position.X = 5F;
+            chartArea1.Position.Y = 15F;
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(290, 314);
             this.chart1.Name = "chart1";
-            series21.ChartArea = "ChartArea1";
-            series21.Legend = "Legend1";
-            series21.Name = "Series1";
-            this.chart1.Series.Add(series21);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(502, 225);
             this.chart1.TabIndex = 18;
             this.chart1.Text = "chart1";
-            title21.Name = "Title1";
-            title21.Text = "Histogram";
-            this.chart1.Titles.Add(title21);
+            title1.Name = "Title1";
+            title1.Text = "Histogram";
+            this.chart1.Titles.Add(title1);
             // 
             // Form1
             // 
