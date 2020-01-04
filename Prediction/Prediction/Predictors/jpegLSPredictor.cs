@@ -8,20 +8,20 @@ namespace Prediction.Predictors
 {
     class jpegLSPredictor : IPredictor
     {
-        public byte Predict(Block block)
+        public byte Predict(byte a, byte b, byte c)
         {
             byte result;
-            if (block.c >= Math.Max(block.a, block.b))
+            if (c >= Math.Max(a, b))
             {
-                result = Math.Min(block.a, block.b);
+                result = Math.Min(a, b);
             }
-            else if (block.c <= Math.Min(block.a, block.b))
+            else if (c <= Math.Min(a, b))
             {
-                result = Math.Max(block.a, block.b);
+                result = Math.Max(a, b);
             }
             else
             {
-                result = (byte)(block.a + block.b - block.c);
+                result = (byte)(a + b - c);
             }
             return Helpers.Normalize(result);
         }

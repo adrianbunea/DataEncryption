@@ -8,6 +8,6 @@ namespace Prediction.Predictors
 {
     interface IPredictor
     {
-        byte Predict(Block block);
+        byte Predict(byte a, byte b, byte c);
     }
 }

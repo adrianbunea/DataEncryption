@@ -8,9 +8,9 @@ namespace Prediction.Predictors
 {
     class ABCPredictor : IPredictor
     {
-        public byte Predict(Block block)
+        public byte Predict(byte a, byte b, byte c)
         {
-            return Helpers.Normalize(block.a + block.b - block.c);
+            return Helpers.Normalize(a + b - c);
         }
     }
 }

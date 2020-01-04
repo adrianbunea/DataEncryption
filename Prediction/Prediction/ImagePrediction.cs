@@ -80,7 +80,7 @@ namespace Prediction
                 {
                     for (int column = 0; column < 256; column++)
                     {
-                        predictionMatrix[row, column] = 128;
+                        predictionMatrix[row, column] = selectedPredictor.Predict(0, 0, 0);
                         ComputeError(row, column);
                     }
                 }
@@ -122,8 +122,7 @@ namespace Prediction
             for (int column = 1; column < 256; column++)
             {
                 byte a = imageMatrix[0, column - 1];
-                Block block = new Block(a, 0, 0);
-                predictionMatrix[0, column] = aPredictor.Predict(block);
+                predictionMatrix[0, column] = aPredictor.Predict(a, 0, 0);
             }
         }
 
@@ -132,8 +131,7 @@ namespace Prediction
             for (int row = 1; row < 256; row++)
             {
                 byte b = imageMatrix[row - 1, 0];
-                Block block = new Block(0, b, 0);
-                predictionMatrix[row, 0] = bPredictor.Predict(block);
+                predictionMatrix[row, 0] = bPredictor.Predict(0, b, 0);
             }
         }
 
@@ -142,8 +140,7 @@ namespace Prediction
             byte a = imageMatrix[row, column - 1];
             byte b = imageMatrix[row - 1, column];
             byte c = imageMatrix[row - 1, column - 1];
-            Block block = new Block(a, b, c);
-            predictionMatrix[row, column] = selectedPredictor.Predict(block);
+            predictionMatrix[row, column] = selectedPredictor.Predict(a, b, c);
         }
 
         private void ComputeError(int row, int column)

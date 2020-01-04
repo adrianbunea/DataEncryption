@@ -8,7 +8,7 @@ namespace Prediction.Predictors
 {
     class HalfPredictor : IPredictor
     {
-        public byte Predict(Block block)
+        public byte Predict(byte a, byte b, byte c)
         {
             return 128;
         }
