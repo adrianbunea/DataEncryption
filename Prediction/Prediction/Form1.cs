@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,7 +33,10 @@ namespace Prediction
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     fileToBeEncoded = openFileDialog.FileName;
-                    pictureBoxOriginalImage.Image = Image.FromFile(openFileDialog.FileName);
+                    using (FileStream fs = new FileStream(fileToBeEncoded, FileMode.Open))
+                    {
+                        pictureBoxOriginalImage.Image = Image.FromStream(fs);
+                    }
                 }
             }
         }
@@ -45,7 +49,7 @@ namespace Prediction
 
         private void buttonStore_Click(object sender, EventArgs e)
         {
-
+            prediction.Encode();
         }
 
         private void buttonShowErrorMatrix_Click(object sender, EventArgs e)

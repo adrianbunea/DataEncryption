@@ -6,13 +6,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BitReaderWriter;
 
 namespace Prediction
 {
     class ImagePrediction
     {
+        private Dictionary<Type, uint> predictorTypes = new Dictionary<Type, uint> {
+            { typeof(HalfPredictor), 0 },
+            { typeof(APredictor), 1 },
+            { typeof(BPredictor), 2 },
+            { typeof(CPredictor), 3 },
+            { typeof(ABCPredictor), 4 },
+            { typeof(ABC2Predictor), 5 },
+            { typeof(BAC2Predictor), 6 },
+            { typeof(AB2Predictor), 7 },
+            { typeof(jpegLSPredictor), 8 },
+        };
+
         private string fileToBeEncoded;
         private string fileToBeDecoded;
+        BitWriter writer;
 
         private byte[,] imageMatrix;
         private byte[,] predictionMatrix;
@@ -72,7 +86,8 @@ namespace Prediction
 
         public void Predict(string fileToBeEncoded)
         {
-            CreateImageMatrix(fileToBeEncoded);
+            this.fileToBeEncoded = fileToBeEncoded;
+            CreateImageMatrix();
 
             if (selectedPredictor.GetType() == typeof(HalfPredictor))
             {
@@ -102,7 +117,7 @@ namespace Prediction
             }
         }
 
-        private void CreateImageMatrix(string fileToBeEncoded)
+        private void CreateImageMatrix()
         {
             Image image = Image.FromFile(fileToBeEncoded);
             Bitmap bitmap = new Bitmap(image, 256, 256);
@@ -115,6 +130,9 @@ namespace Prediction
                     imageMatrix[row, column] = bitmap.GetPixel(column, row).R;
                 }
             }
+
+            bitmap.Dispose();
+            image.Dispose();
         }
 
         private void PredictFirstRow()
@@ -150,7 +168,56 @@ namespace Prediction
 
         public void Encode()
         {
+            writer = new BitWriter(fileToBeEncoded + ".pre");
+            using (FileStream fs = new FileStream(fileToBeEncoded, FileMode.Open))
+            {
+                for (int i = 0; i < 1078; i++)
+                {
+                    writer.WriteNBits((uint)fs.ReadByte(), 8);
+                }
+            }
 
+            uint type = predictorTypes[selectedPredictor.GetType()];
+            writer.WriteNBits(type, 4);
+
+            for (int row = 0; row < 256; row++)
+            {
+                for (int column = 0; column < 256; column++)
+                {
+                    WriteEncodedError(errorMatrix[row, column]);
+                }
+            }
+        }
+
+        private void WriteEncodedError(int value)
+        {
+            if (value == 0)
+            {
+                writer.WriteNBits(0, 1);
+            }
+            else
+            {
+                for (int n = 0; n < 8; n++)
+                {
+                    if (Math.Abs(value) < Math.Pow(2, n))
+                    {
+                        writer.WriteNBits(255, n);
+                        writer.WriteBit(0);
+                        
+                        if (value > 0)
+                        {
+                            writer.WriteNBits((uint)value, n);
+                        }
+                        else
+                        {
+                            uint temp = (uint)(Math.Pow(2, n) + value);
+                            writer.WriteNBits(temp, n);
+                        }
+
+                        break;
+                    }
+                }
+            }
         }
     }
 }
