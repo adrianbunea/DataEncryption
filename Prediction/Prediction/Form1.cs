@@ -73,7 +73,7 @@ namespace Prediction
         private void buttonDecode_Click(object sender, EventArgs e)
         {
             prediction.Decode(fileToBeDecoded);
-            //pictureBoxDecodedImage.Image = prediction.ImageMatrix;
+            pictureBoxDecodedImage.Image = prediction.ImageMatrix;
         }
 
         private void buttonSaveDecoded_Click(object sender, EventArgs e)

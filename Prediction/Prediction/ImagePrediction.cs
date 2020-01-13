@@ -33,6 +33,24 @@ namespace Prediction
         private byte[,] predictionMatrix;
         private int[,] errorMatrix;
 
+        public Bitmap ImageMatrix
+        {
+            get
+            {
+                Bitmap bitmap = new Bitmap(256, 256);
+                for (int row = 0; row < 256; row++)
+                {
+                    for (int column = 0; column < 256; column++)
+                    {
+                        byte value = imageMatrix[row, column];
+                        Color color = Color.FromArgb(value, value, value);
+                        bitmap.SetPixel(column, row, color);
+                    }
+                }
+                return bitmap;
+            }
+        }
+
         public Bitmap PredictionMatrix
         {
             get
@@ -136,12 +154,39 @@ namespace Prediction
             image.Dispose();
         }
 
+        private void CreateImageMatrixFromErrorMatrix()
+        {
+            predictionMatrix[0, 0] = 128;
+            imageMatrix[0, 0] = Helpers.Normalize(predictionMatrix[0, 0] + errorMatrix[0, 0]);
+
+            PredictFirstRowFromErrorMatrix();
+            PredictFirstColumnFromErrorMatrix();
+
+            for (int row = 1; row < 256; row++)
+            {
+                for (int column = 1; column < 256; column++)
+                {
+                    PredictPixelFromErrorMatrix(row, column);
+                }
+            }
+        }
+
         private void PredictFirstRow()
         {
             for (int column = 1; column < 256; column++)
             {
                 byte a = imageMatrix[0, column - 1];
                 predictionMatrix[0, column] = aPredictor.Predict(a, 0, 0);
+            }
+        }
+
+        private void PredictFirstRowFromErrorMatrix()
+        {
+            for (int column = 1; column < 256; column++)
+            {
+                byte a = imageMatrix[0, column - 1];
+                predictionMatrix[0, column] = aPredictor.Predict(a, 0, 0);
+                imageMatrix[0, column] = Helpers.Normalize(predictionMatrix[0, column] + errorMatrix[0, column]);
             }
         }
 
@@ -154,12 +199,31 @@ namespace Prediction
             }
         }
 
+        private void PredictFirstColumnFromErrorMatrix()
+        {
+            for (int row = 1; row < 256; row++)
+            {
+                byte b = imageMatrix[row - 1, 0];
+                predictionMatrix[row, 0] = bPredictor.Predict(0, b, 0);
+                imageMatrix[row, 0] = Helpers.Normalize(predictionMatrix[row, 0] + errorMatrix[row, 0]);
+            }
+        }
+
         private void PredictPixel(int row, int column)
         {
             byte a = imageMatrix[row, column - 1];
             byte b = imageMatrix[row - 1, column];
             byte c = imageMatrix[row - 1, column - 1];
             predictionMatrix[row, column] = selectedPredictor.Predict(a, b, c);
+        }
+
+        private void PredictPixelFromErrorMatrix(int row, int column)
+        {
+            byte a = imageMatrix[row, column - 1];
+            byte b = imageMatrix[row - 1, column];
+            byte c = imageMatrix[row - 1, column - 1];
+            predictionMatrix[row, column] = selectedPredictor.Predict(a, b, c);
+            imageMatrix[row, column] = Helpers.Normalize(predictionMatrix[row, column] + errorMatrix[row, column]);
         }
 
         private void ComputeError(int row, int column)
@@ -169,7 +233,8 @@ namespace Prediction
 
         public void Encode()
         {
-            writer = new BitWriter(fileToBeEncoded + ".pre");
+            uint type = predictorTypes[selectedPredictor.GetType()];
+            writer = new BitWriter(fileToBeEncoded + type + ".pre");
             using (FileStream fs = new FileStream(fileToBeEncoded, FileMode.Open))
             {
                 for (int i = 0; i < 1078; i++)
@@ -178,7 +243,6 @@ namespace Prediction
                 }
             }
 
-            uint type = predictorTypes[selectedPredictor.GetType()];
             writer.WriteNBits(type, 4);
 
             for (int row = 0; row < 256; row++)
@@ -194,7 +258,6 @@ namespace Prediction
 
         private void WriteEncodedError(int value)
         {
-            //Console.WriteLine(value);
             if (value == 0)
             {
                 writer.WriteNBits(0, 1);
@@ -208,14 +271,15 @@ namespace Prediction
                         writer.WriteNBits(255, n);
                         writer.WriteBit(0);
                         
-                        if (value > 0)
+                        if (value < 0)
                         {
-                            writer.WriteNBits((uint)value, n);
+                            int maxValueAfterZero = (int)Math.Pow(2, n) - 1;
+                            uint encodedValue = (uint)(maxValueAfterZero + value);
+                            writer.WriteNBits(encodedValue, n);
                         }
                         else
                         {
-                            uint temp = (uint)(Math.Pow(2, n) + value - 1);
-                            writer.WriteNBits(temp, n);
+                            writer.WriteNBits((uint)value, n);
                         }
 
                         break;
@@ -228,19 +292,20 @@ namespace Prediction
         {
             this.fileToBeDecoded = fileToBeDecoded;
             reader = new BitReader(fileToBeDecoded);
-            writer = new BitWriter(fileToBeDecoded + ".bmp");
+            writer = new BitWriter(fileToBeDecoded + ".decoded");
+
             for (int i = 0; i < 1078; i++)
             {
                 writer.WriteNBits(reader.ReadNBits(8), 8);
             }
 
-            Dictionary<uint, Type> invertePredictorTypes = new Dictionary<uint, Type>();
+            Dictionary<uint, Type> invertedPredictorTypes = new Dictionary<uint, Type>();
             foreach (KeyValuePair<Type, uint> pair in predictorTypes)
             {
-                invertePredictorTypes.Add(pair.Value, pair.Key);
+                invertedPredictorTypes.Add(pair.Value, pair.Key);
             }
 
-            Type type = invertePredictorTypes[reader.ReadNBits(4)];
+            Type type = invertedPredictorTypes[reader.ReadNBits(4)];
             selectedPredictor = (IPredictor)Activator.CreateInstance(type);
 
             for (int row = 0; row < 256; row++)
@@ -250,26 +315,27 @@ namespace Prediction
                     errorMatrix[row, column] = ReadEncodedError();
                 }
             }
+
+            reader.Dispose();
+            writer.Dispose();
+
+            CreateImageMatrixFromErrorMatrix();
         }
 
         private int ReadEncodedError()
         {
             int result;
-            string readBits = "";
-            byte bit;
+            string bitsAfterZero = "";
             int count = 0;
 
-            while ((bit = reader.ReadBit()) != 0)
+            while (reader.ReadBit() != 0)
             {
-                readBits += bit;
                 count++;
             }
 
-            readBits += bit;
-
             for (int i = 0; i < count; i++)
             {
-                readBits += reader.ReadBit();
+                bitsAfterZero += reader.ReadBit();
             }
 
             if (count == 0)
@@ -278,19 +344,18 @@ namespace Prediction
             }
             else
             {
-                string bitsAfterZero = readBits.Substring(count + 1, count);
+                int valueAfterZero = Convert.ToInt32(bitsAfterZero, 2);
                 if (bitsAfterZero[0] == '0')
                 {
-                    int temp = Convert.ToInt32(bitsAfterZero, 2);
-                    result = -((int)Math.Pow(2, count) - 1);
-                    result += temp;
+                    int maxValueAfterZero = (int)Math.Pow(2, count) - 1;
+                    result = valueAfterZero - maxValueAfterZero;
                 }
                 else
                 {
-                    result = Convert.ToInt32(bitsAfterZero, 2);
+                    result = valueAfterZero;
                 }
             }
-            Console.WriteLine(result);
+
             return result;
         }
     }
