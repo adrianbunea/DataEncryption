@@ -26,6 +26,7 @@ namespace Prediction
 
         private string fileToBeEncoded;
         private string fileToBeDecoded;
+        BitReader reader;
         BitWriter writer;
 
         private byte[,] imageMatrix;
@@ -187,17 +188,20 @@ namespace Prediction
                     WriteEncodedError(errorMatrix[row, column]);
                 }
             }
+
+            writer.Dispose();
         }
 
         private void WriteEncodedError(int value)
         {
+            //Console.WriteLine(value);
             if (value == 0)
             {
                 writer.WriteNBits(0, 1);
             }
             else
             {
-                for (int n = 0; n < 8; n++)
+                for (int n = 1; n <= 8; n++)
                 {
                     if (Math.Abs(value) < Math.Pow(2, n))
                     {
@@ -210,7 +214,7 @@ namespace Prediction
                         }
                         else
                         {
-                            uint temp = (uint)(Math.Pow(2, n) + value);
+                            uint temp = (uint)(Math.Pow(2, n) + value - 1);
                             writer.WriteNBits(temp, n);
                         }
 
@@ -218,6 +222,76 @@ namespace Prediction
                     }
                 }
             }
+        }
+
+        public void Decode(string fileToBeDecoded)
+        {
+            this.fileToBeDecoded = fileToBeDecoded;
+            reader = new BitReader(fileToBeDecoded);
+            writer = new BitWriter(fileToBeDecoded + ".bmp");
+            for (int i = 0; i < 1078; i++)
+            {
+                writer.WriteNBits(reader.ReadNBits(8), 8);
+            }
+
+            Dictionary<uint, Type> invertePredictorTypes = new Dictionary<uint, Type>();
+            foreach (KeyValuePair<Type, uint> pair in predictorTypes)
+            {
+                invertePredictorTypes.Add(pair.Value, pair.Key);
+            }
+
+            Type type = invertePredictorTypes[reader.ReadNBits(4)];
+            selectedPredictor = (IPredictor)Activator.CreateInstance(type);
+
+            for (int row = 0; row < 256; row++)
+            {
+                for (int column = 0; column < 256; column++)
+                {
+                    errorMatrix[row, column] = ReadEncodedError();
+                }
+            }
+        }
+
+        private int ReadEncodedError()
+        {
+            int result;
+            string readBits = "";
+            byte bit;
+            int count = 0;
+
+            while ((bit = reader.ReadBit()) != 0)
+            {
+                readBits += bit;
+                count++;
+            }
+
+            readBits += bit;
+
+            for (int i = 0; i < count; i++)
+            {
+                readBits += reader.ReadBit();
+            }
+
+            if (count == 0)
+            {
+                result = 0;
+            }
+            else
+            {
+                string bitsAfterZero = readBits.Substring(count + 1, count);
+                if (bitsAfterZero[0] == '0')
+                {
+                    int temp = Convert.ToInt32(bitsAfterZero, 2);
+                    result = -((int)Math.Pow(2, count) - 1);
+                    result += temp;
+                }
+                else
+                {
+                    result = Convert.ToInt32(bitsAfterZero, 2);
+                }
+            }
+            Console.WriteLine(result);
+            return result;
         }
     }
 }

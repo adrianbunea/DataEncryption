@@ -61,6 +61,8 @@ namespace Prediction
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
+                openFileDialog.Filter = "Prediction Files|*.pre";
+
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     fileToBeDecoded = openFileDialog.FileName;
@@ -70,7 +72,8 @@ namespace Prediction
 
         private void buttonDecode_Click(object sender, EventArgs e)
         {
-
+            prediction.Decode(fileToBeDecoded);
+            //pictureBoxDecodedImage.Image = prediction.ImageMatrix;
         }
 
         private void buttonSaveDecoded_Click(object sender, EventArgs e)
