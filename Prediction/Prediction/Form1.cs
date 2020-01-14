@@ -17,8 +17,10 @@ namespace Prediction
 
         public Form1()
         {
-            prediction = new ImagePrediction();
             InitializeComponent();
+
+            prediction = new ImagePrediction();
+            prediction.errorMatrixScale = (float)numericUpDownScaleEM.Value;
             selectedHistogram = 0;
         }
 
@@ -216,5 +218,11 @@ namespace Prediction
             ShowHistogram();
         }
         #endregion
+
+        private void numericUpDownScaleEM_ValueChanged(object sender, EventArgs e)
+        {
+            prediction.errorMatrixScale = (float)numericUpDownScaleEM.Value;
+            pictureBoxErrorMatrix.Image = prediction.ErrorMatrix;
+        }
     }
 }

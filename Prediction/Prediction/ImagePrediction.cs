@@ -34,6 +34,7 @@ namespace Prediction
         private byte[,] imageMatrix;
         private byte[,] predictionMatrix;
         private int[,] errorMatrix;
+        public float errorMatrixScale;
 
         public Bitmap ImageMatrix
         {
@@ -80,7 +81,7 @@ namespace Prediction
                 {
                     for (int column = 0; column < 256; column++)
                     {
-                        byte value = Helpers.Normalize(errorMatrix[row, column] + 128);
+                        byte value = Helpers.Normalize((int)(errorMatrix[row, column] * errorMatrixScale) + 128);
                         Color color = Color.FromArgb(value, value, value);
                         bitmap.SetPixel(column, row, color);
                     }

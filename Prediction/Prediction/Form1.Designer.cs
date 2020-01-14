@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.pictureBoxOriginalImage = new System.Windows.Forms.PictureBox();
             this.pictureBoxErrorMatrix = new System.Windows.Forms.PictureBox();
             this.pictureBoxDecodedImage = new System.Windows.Forms.PictureBox();
@@ -135,18 +135,18 @@
             // 
             this.numericUpDownScaleEM.DecimalPlaces = 1;
             this.numericUpDownScaleEM.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownScaleEM.Location = new System.Drawing.Point(274, 277);
-            this.numericUpDownScaleEM.Maximum = new decimal(new int[] {
-            15,
+            5,
             0,
             0,
             65536});
+            this.numericUpDownScaleEM.Location = new System.Drawing.Point(274, 277);
+            this.numericUpDownScaleEM.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.numericUpDownScaleEM.Minimum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             65536});
@@ -158,6 +158,7 @@
             0,
             0,
             65536});
+            this.numericUpDownScaleEM.ValueChanged += new System.EventHandler(this.numericUpDownScaleEM_ValueChanged);
             // 
             // labelScaleEM
             // 
@@ -443,49 +444,49 @@
             // 
             // chart1
             // 
-            chartArea6.AxisX.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
-            chartArea6.AxisX.Interval = 128D;
-            chartArea6.AxisX.IsStartedFromZero = false;
-            chartArea6.AxisX.MajorGrid.Enabled = false;
-            chartArea6.AxisX.MajorTickMark.Interval = 32D;
-            chartArea6.AxisX.Maximum = 256D;
-            chartArea6.AxisX.Minimum = -256D;
-            chartArea6.AxisX.Title = "Intensity";
-            chartArea6.AxisY.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
-            chartArea6.AxisY.Interval = 65536D;
-            chartArea6.AxisY.MajorGrid.Enabled = false;
-            chartArea6.AxisY.MajorTickMark.Interval = 16384D;
-            chartArea6.AxisY.Maximum = 65536D;
-            chartArea6.AxisY.Minimum = 0D;
-            chartArea6.AxisY.Title = "Frequency (# of Pixels)";
-            chartArea6.AxisY.TitleAlignment = System.Drawing.StringAlignment.Near;
-            chartArea6.InnerPlotPosition.Auto = false;
-            chartArea6.InnerPlotPosition.Height = 73F;
-            chartArea6.InnerPlotPosition.Width = 83F;
-            chartArea6.InnerPlotPosition.X = 10F;
-            chartArea6.InnerPlotPosition.Y = 7F;
-            chartArea6.Name = "ChartArea1";
-            chartArea6.Position.Auto = false;
-            chartArea6.Position.Height = 84F;
-            chartArea6.Position.Width = 94F;
-            chartArea6.Position.X = 5F;
-            chartArea6.Position.Y = 15F;
-            this.chart1.ChartAreas.Add(chartArea6);
-            legend6.Enabled = false;
-            legend6.Name = "Legend1";
-            this.chart1.Legends.Add(legend6);
+            chartArea8.AxisX.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
+            chartArea8.AxisX.Interval = 128D;
+            chartArea8.AxisX.IsStartedFromZero = false;
+            chartArea8.AxisX.MajorGrid.Enabled = false;
+            chartArea8.AxisX.MajorTickMark.Interval = 32D;
+            chartArea8.AxisX.Maximum = 256D;
+            chartArea8.AxisX.Minimum = -256D;
+            chartArea8.AxisX.Title = "Intensity";
+            chartArea8.AxisY.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
+            chartArea8.AxisY.Interval = 65536D;
+            chartArea8.AxisY.MajorGrid.Enabled = false;
+            chartArea8.AxisY.MajorTickMark.Interval = 16384D;
+            chartArea8.AxisY.Maximum = 65536D;
+            chartArea8.AxisY.Minimum = 0D;
+            chartArea8.AxisY.Title = "Frequency (# of Pixels)";
+            chartArea8.AxisY.TitleAlignment = System.Drawing.StringAlignment.Near;
+            chartArea8.InnerPlotPosition.Auto = false;
+            chartArea8.InnerPlotPosition.Height = 73F;
+            chartArea8.InnerPlotPosition.Width = 83F;
+            chartArea8.InnerPlotPosition.X = 10F;
+            chartArea8.InnerPlotPosition.Y = 7F;
+            chartArea8.Name = "ChartArea1";
+            chartArea8.Position.Auto = false;
+            chartArea8.Position.Height = 84F;
+            chartArea8.Position.Width = 94F;
+            chartArea8.Position.X = 5F;
+            chartArea8.Position.Y = 15F;
+            this.chart1.ChartAreas.Add(chartArea8);
+            legend8.Enabled = false;
+            legend8.Name = "Legend1";
+            this.chart1.Legends.Add(legend8);
             this.chart1.Location = new System.Drawing.Point(290, 314);
             this.chart1.Name = "chart1";
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.chart1.Series.Add(series6);
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            this.chart1.Series.Add(series8);
             this.chart1.Size = new System.Drawing.Size(502, 225);
             this.chart1.TabIndex = 18;
             this.chart1.Text = "chart1";
-            title6.Name = "Title1";
-            title6.Text = "Histogram";
-            this.chart1.Titles.Add(title6);
+            title8.Name = "Title1";
+            title8.Text = "Histogram";
+            this.chart1.Titles.Add(title8);
             // 
             // Form1
             // 
