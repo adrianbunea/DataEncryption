@@ -1,19 +1,16 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.IO;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Prediction.Predictors;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Prediction
 {
     public partial class Form1 : Form
     {
+        int selectedHistogram;
         string fileToBeEncoded;
         string fileToBeDecoded;
         ImagePrediction prediction;
@@ -22,6 +19,7 @@ namespace Prediction
         {
             prediction = new ImagePrediction();
             InitializeComponent();
+            selectedHistogram = 0;
         }
 
         private void buttonLoadImage_Click(object sender, EventArgs e)
@@ -81,11 +79,6 @@ namespace Prediction
             prediction.storeDecodedFile();
         }
 
-        private void buttonShowHistogram_Click(object sender, EventArgs e)
-        {
-
-        }
-
         #region Predictor Selection
         private void radioButtonPredictor1_CheckedChanged(object sender, EventArgs e)
         {
@@ -143,19 +136,84 @@ namespace Prediction
         #endregion
 
         #region Histogram Display
+        private void buttonShowHistogram_Click(object sender, EventArgs e)
+        {
+            ShowHistogram();
+        }
+
         private void radioButtonHistogram1_CheckedChanged(object sender, EventArgs e)
         {
-
+            selectedHistogram = 0;
+            ShowHistogram();
         }
 
         private void radioButtonHistogram2_CheckedChanged(object sender, EventArgs e)
         {
-
+            selectedHistogram = 1;
+            ShowHistogram();
         }
 
         private void radioButtonHistogram3_CheckedChanged(object sender, EventArgs e)
         {
+            selectedHistogram = 2;
+            ShowHistogram();
+        }
 
+        private void ShowHistogram()
+        {
+            chart1.Series.Clear();
+            Series series = new Series()
+            {
+                MarkerSize = 3,
+                CustomProperties = "IsXAxisQuantitative=True"
+            };
+
+            KeyValuePair<int, int>[] statistic;
+            switch (selectedHistogram)
+            {
+                case 0:
+                    statistic = CreateStatistic(new Bitmap(pictureBoxOriginalImage.Image));
+                    break;
+                case 1:
+                    statistic = CreateStatistic(new Bitmap(pictureBoxErrorMatrix.Image));
+                    break;
+                default:
+                    statistic = CreateStatistic(new Bitmap(pictureBoxDecodedImage.Image));
+                    break;
+            }
+
+            series.Points.DataBind(statistic, "Key", "Value", null);
+            chart1.Series.Add(series);
+        }
+
+        private KeyValuePair<int, int>[] CreateStatistic(Bitmap bitmap)
+        {
+            int[] initialStatistic = new int[512];
+            for (int row = 0; row < 256; row++)
+            {
+                for (int column = 0; column < 256; column++)
+                {
+                    initialStatistic[bitmap.GetPixel(column, row).R + 256]++;
+                }
+            }
+
+            KeyValuePair<int, int>[] statistic = new KeyValuePair<int, int>[512];
+
+            for (int i = 0; i < 512; i++)
+            {
+                statistic[i] = new KeyValuePair<int, int>(i - 256, initialStatistic[i]);
+            }
+
+            return statistic;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            int newMaximum = (int)(65536 / (float)numericUpDown1.Value);
+            chart1.ChartAreas[0].AxisY.Maximum = newMaximum;
+            chart1.ChartAreas[0].AxisY.MajorTickMark.Interval = newMaximum / 2;
+            chart1.ChartAreas[0].AxisY.Interval = newMaximum;
+            ShowHistogram();
         }
         #endregion
     }

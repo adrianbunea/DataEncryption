@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.pictureBoxOriginalImage = new System.Windows.Forms.PictureBox();
             this.pictureBoxErrorMatrix = new System.Windows.Forms.PictureBox();
             this.pictureBoxDecodedImage = new System.Windows.Forms.PictureBox();
@@ -358,7 +358,6 @@
             this.radioButtonHistogram3.Name = "radioButtonHistogram3";
             this.radioButtonHistogram3.Size = new System.Drawing.Size(69, 17);
             this.radioButtonHistogram3.TabIndex = 2;
-            this.radioButtonHistogram3.TabStop = true;
             this.radioButtonHistogram3.Text = "Decoded";
             this.radioButtonHistogram3.UseVisualStyleBackColor = true;
             this.radioButtonHistogram3.CheckedChanged += new System.EventHandler(this.radioButtonHistogram3_CheckedChanged);
@@ -370,7 +369,6 @@
             this.radioButtonHistogram2.Name = "radioButtonHistogram2";
             this.radioButtonHistogram2.Size = new System.Drawing.Size(97, 17);
             this.radioButtonHistogram2.TabIndex = 1;
-            this.radioButtonHistogram2.TabStop = true;
             this.radioButtonHistogram2.Text = "Error Prediction";
             this.radioButtonHistogram2.UseVisualStyleBackColor = true;
             this.radioButtonHistogram2.CheckedChanged += new System.EventHandler(this.radioButtonHistogram2_CheckedChanged);
@@ -382,7 +380,6 @@
             this.radioButtonHistogram1.Name = "radioButtonHistogram1";
             this.radioButtonHistogram1.Size = new System.Drawing.Size(60, 17);
             this.radioButtonHistogram1.TabIndex = 0;
-            this.radioButtonHistogram1.TabStop = true;
             this.radioButtonHistogram1.Text = "Original";
             this.radioButtonHistogram1.UseVisualStyleBackColor = true;
             this.radioButtonHistogram1.CheckedChanged += new System.EventHandler(this.radioButtonHistogram1_CheckedChanged);
@@ -415,7 +412,7 @@
             0});
             this.numericUpDown1.Location = new System.Drawing.Point(159, 407);
             this.numericUpDown1.Maximum = new decimal(new int[] {
-            5,
+            30,
             0,
             0,
             0});
@@ -423,7 +420,7 @@
             1,
             0,
             0,
-            65536});
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(36, 20);
             this.numericUpDown1.TabIndex = 15;
@@ -432,6 +429,7 @@
             0,
             0,
             0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // buttonShowHistogram
             // 
@@ -445,49 +443,49 @@
             // 
             // chart1
             // 
-            chartArea1.AxisX.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
-            chartArea1.AxisX.Interval = 128D;
-            chartArea1.AxisX.IsStartedFromZero = false;
-            chartArea1.AxisX.MajorGrid.Enabled = false;
-            chartArea1.AxisX.MajorTickMark.Interval = 32D;
-            chartArea1.AxisX.Maximum = 256D;
-            chartArea1.AxisX.Minimum = -256D;
-            chartArea1.AxisX.Title = "Intensity";
-            chartArea1.AxisY.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
-            chartArea1.AxisY.Interval = 65536D;
-            chartArea1.AxisY.MajorGrid.Enabled = false;
-            chartArea1.AxisY.MajorTickMark.Interval = 16384D;
-            chartArea1.AxisY.Maximum = 65536D;
-            chartArea1.AxisY.Minimum = 0D;
-            chartArea1.AxisY.Title = "Frequency (# of Pixels)";
-            chartArea1.AxisY.TitleAlignment = System.Drawing.StringAlignment.Near;
-            chartArea1.InnerPlotPosition.Auto = false;
-            chartArea1.InnerPlotPosition.Height = 73F;
-            chartArea1.InnerPlotPosition.Width = 83F;
-            chartArea1.InnerPlotPosition.X = 10F;
-            chartArea1.InnerPlotPosition.Y = 7F;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 84F;
-            chartArea1.Position.Width = 94F;
-            chartArea1.Position.X = 5F;
-            chartArea1.Position.Y = 15F;
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Enabled = false;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea6.AxisX.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
+            chartArea6.AxisX.Interval = 128D;
+            chartArea6.AxisX.IsStartedFromZero = false;
+            chartArea6.AxisX.MajorGrid.Enabled = false;
+            chartArea6.AxisX.MajorTickMark.Interval = 32D;
+            chartArea6.AxisX.Maximum = 256D;
+            chartArea6.AxisX.Minimum = -256D;
+            chartArea6.AxisX.Title = "Intensity";
+            chartArea6.AxisY.ArrowStyle = System.Windows.Forms.DataVisualization.Charting.AxisArrowStyle.SharpTriangle;
+            chartArea6.AxisY.Interval = 65536D;
+            chartArea6.AxisY.MajorGrid.Enabled = false;
+            chartArea6.AxisY.MajorTickMark.Interval = 16384D;
+            chartArea6.AxisY.Maximum = 65536D;
+            chartArea6.AxisY.Minimum = 0D;
+            chartArea6.AxisY.Title = "Frequency (# of Pixels)";
+            chartArea6.AxisY.TitleAlignment = System.Drawing.StringAlignment.Near;
+            chartArea6.InnerPlotPosition.Auto = false;
+            chartArea6.InnerPlotPosition.Height = 73F;
+            chartArea6.InnerPlotPosition.Width = 83F;
+            chartArea6.InnerPlotPosition.X = 10F;
+            chartArea6.InnerPlotPosition.Y = 7F;
+            chartArea6.Name = "ChartArea1";
+            chartArea6.Position.Auto = false;
+            chartArea6.Position.Height = 84F;
+            chartArea6.Position.Width = 94F;
+            chartArea6.Position.X = 5F;
+            chartArea6.Position.Y = 15F;
+            this.chart1.ChartAreas.Add(chartArea6);
+            legend6.Enabled = false;
+            legend6.Name = "Legend1";
+            this.chart1.Legends.Add(legend6);
             this.chart1.Location = new System.Drawing.Point(290, 314);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chart1.Series.Add(series6);
             this.chart1.Size = new System.Drawing.Size(502, 225);
             this.chart1.TabIndex = 18;
             this.chart1.Text = "chart1";
-            title1.Name = "Title1";
-            title1.Text = "Histogram";
-            this.chart1.Titles.Add(title1);
+            title6.Name = "Title1";
+            title6.Text = "Histogram";
+            this.chart1.Titles.Add(title6);
             // 
             // Form1
             // 
