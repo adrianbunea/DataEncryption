@@ -78,7 +78,7 @@ namespace Prediction
 
         private void buttonSaveDecoded_Click(object sender, EventArgs e)
         {
-
+            prediction.storeDecodedFile();
         }
 
         private void buttonShowHistogram_Click(object sender, EventArgs e)

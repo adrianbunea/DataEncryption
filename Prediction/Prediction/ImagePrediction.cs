@@ -24,6 +24,8 @@ namespace Prediction
             { typeof(jpegLSPredictor), 8 },
         };
 
+        byte[] bmpHeader;
+
         private string fileToBeEncoded;
         private string fileToBeDecoded;
         BitReader reader;
@@ -292,11 +294,11 @@ namespace Prediction
         {
             this.fileToBeDecoded = fileToBeDecoded;
             reader = new BitReader(fileToBeDecoded);
-            writer = new BitWriter(fileToBeDecoded + ".decoded");
 
+            bmpHeader = new byte[1078];
             for (int i = 0; i < 1078; i++)
             {
-                writer.WriteNBits(reader.ReadNBits(8), 8);
+                bmpHeader[i] = (byte)reader.ReadNBits(8);
             }
 
             Dictionary<uint, Type> invertedPredictorTypes = new Dictionary<uint, Type>();
@@ -317,7 +319,6 @@ namespace Prediction
             }
 
             reader.Dispose();
-            writer.Dispose();
 
             CreateImageMatrixFromErrorMatrix();
         }
@@ -357,6 +358,28 @@ namespace Prediction
             }
 
             return result;
+        }
+
+        public void storeDecodedFile()
+        {
+            writer = new BitWriter(fileToBeDecoded + ".decoded");
+
+            for (int i = 0; i < 1078; i++)
+            {
+                writer.WriteNBits(bmpHeader[i], 8);
+            }
+
+            for (int row = 0; row < 256; row++)
+            {
+                for (int column = 0; column < 256; column++)
+                {
+                    writer.WriteNBits(imageMatrix[row, column], 8);
+                    writer.WriteNBits(imageMatrix[row, column], 8);
+                    writer.WriteNBits(imageMatrix[row, column], 8);
+                }
+            }
+
+            writer.Dispose();
         }
     }
 }
